@@ -4,7 +4,7 @@ Chair of Algorithms and Data Structures.
 Author: Hannah Bast <bast@cs.uni-freiburg.de>
 """
 
-import itertools
+import math
 
 
 class EsaExperimentData:
@@ -98,24 +98,66 @@ class EsaExperimentData:
         three phases.
         """
 
-        print("Kendall tau between rankings of the two PCs")
-        tau1 = kendall_tau(self.avg_scores[0][0], self.avg_scores[0][1])
-        tau2 = kendall_tau(self.avg_scores[1][0], self.avg_scores[1][1])
-        tau3 = kendall_tau(self.avg_scores[2][0], self.avg_scores[2][1])
-        print("Phase 1: %.2f" % tau1)
-        print("Phase 2: %.2f" % tau2)
-        print("Phase 3: %.2f" % tau3)
+        print()
+        print("Kendall tau (p / b / a) between PCs and phases (average scores):")
+        print()
+        tau_p_1a = kendall_tau_p(self.avg_scores[0][0], self.avg_scores[0][1])
+        tau_p_2a = kendall_tau_p(self.avg_scores[1][0], self.avg_scores[1][1])
+        tau_p_3a = kendall_tau_p(self.avg_scores[2][0], self.avg_scores[2][1])
+        tau_a_1a = kendall_tau_a(self.avg_scores[0][0], self.avg_scores[0][1])
+        tau_a_2a = kendall_tau_a(self.avg_scores[1][0], self.avg_scores[1][1])
+        tau_a_3a = kendall_tau_a(self.avg_scores[2][0], self.avg_scores[2][1])
+        tau_b_1a = kendall_tau_b(self.avg_scores[0][0], self.avg_scores[0][1])
+        tau_b_2a = kendall_tau_b(self.avg_scores[1][0], self.avg_scores[1][1])
+        tau_b_3a = kendall_tau_b(self.avg_scores[2][0], self.avg_scores[2][1])
+        print("Phase 1: %.2f / %.2f / %.2f" % (tau_p_1a, tau_b_1a, tau_a_1a))
+        print("Phase 2: %.2f / %.2f / %.2f" % (tau_p_2a, tau_b_2a, tau_a_2a))
+        print("Phase 3: %.2f / %.2f / %.2f" % (tau_p_3a, tau_b_3a, tau_a_3a))
+        print()
+        tau_p_pc1_12a = kendall_tau_p(self.avg_scores[0][0], self.avg_scores[1][0])
+        tau_p_pc1_23a = kendall_tau_p(self.avg_scores[1][0], self.avg_scores[2][0])
+        tau_p_pc2_12a = kendall_tau_p(self.avg_scores[0][1], self.avg_scores[1][1])
+        tau_p_pc2_23a = kendall_tau_p(self.avg_scores[1][1], self.avg_scores[2][1])
+        tau_b_pc1_12a = kendall_tau_b(self.avg_scores[0][0], self.avg_scores[1][0])
+        tau_b_pc1_23a = kendall_tau_b(self.avg_scores[1][0], self.avg_scores[2][0])
+        tau_b_pc2_12a = kendall_tau_b(self.avg_scores[0][1], self.avg_scores[1][1])
+        tau_b_pc2_23a = kendall_tau_b(self.avg_scores[1][1], self.avg_scores[2][1])
+        print("PC1, Phases 1 <-> 2: %.2f / %.2f" % (tau_p_pc1_12a, tau_b_pc1_12a))
+        print("PC2, Phases 1 <-> 2: %.2f / %.2f" % (tau_p_pc2_12a, tau_b_pc2_12a))
+        print("PC1, Phases 2 <-> 3: %.2f / %.2f" % (tau_p_pc1_23a, tau_b_pc1_23a))
+        print("PC2, Phases 2 <-> 3: %.2f / %.2f" % (tau_p_pc2_23a, tau_b_pc2_23a)) 
+        print()
 
         print()
-        print("Kendall tau between phases for same PC:")
-        tau_pc1_12 = kendall_tau(self.avg_scores[0][0], self.avg_scores[1][0])
-        tau_pc1_23 = kendall_tau(self.avg_scores[1][0], self.avg_scores[2][0])
-        tau_pc2_12 = kendall_tau(self.avg_scores[0][1], self.avg_scores[1][1])
-        tau_pc2_23 = kendall_tau(self.avg_scores[1][1], self.avg_scores[2][1])
-        print("PC1, Phases 1 <-> 2: %.2f" % tau_pc1_12)
-        print("PC2, Phases 1 <-> 2: %.2f" % tau_pc2_12)
-        print("PC1, Phases 2 <-> 3: %.2f" % tau_pc1_23)
-        print("PC2, Phases 2 <-> 3: %.2f" % tau_pc2_23)
+        print("Kendall tau (p / b / a) between PCs and phases (5-point scores):")
+        print()
+        tau_p_1s = kendall_tau_p(self.sgl_scores[0][0], self.sgl_scores[0][1])
+        tau_p_2s = kendall_tau_p(self.sgl_scores[1][0], self.sgl_scores[1][1])
+        tau_p_3s = kendall_tau_p(self.sgl_scores[2][0], self.sgl_scores[2][1])
+        tau_a_1s = kendall_tau_a(self.sgl_scores[0][0], self.sgl_scores[0][1])
+        tau_a_2s = kendall_tau_a(self.sgl_scores[1][0], self.sgl_scores[1][1])
+        tau_a_3s = kendall_tau_a(self.sgl_scores[2][0], self.sgl_scores[2][1])
+        tau_b_1s = kendall_tau_b(self.sgl_scores[0][0], self.sgl_scores[0][1])
+        tau_b_2s = kendall_tau_b(self.sgl_scores[1][0], self.sgl_scores[1][1])
+        tau_b_3s = kendall_tau_b(self.sgl_scores[2][0], self.sgl_scores[2][1])
+        print("Phase 1: %.2f / %.2f / %.2f" % (tau_p_1s, tau_b_1s, tau_a_1s))
+        print("Phase 2: %.2f / %.2f / %.2f" % (tau_p_2s, tau_b_2s, tau_a_2s))
+        print("Phase 3: %.2f / %.2f / %.2f" % (tau_p_3s, tau_b_3s, tau_a_3s))
+        print()
+        tau_p_pc1_12s = kendall_tau_p(self.sgl_scores[0][0], self.sgl_scores[1][0])
+        tau_p_pc1_23s = kendall_tau_p(self.sgl_scores[1][0], self.sgl_scores[2][0])
+        tau_p_pc2_12s = kendall_tau_p(self.sgl_scores[0][1], self.sgl_scores[1][1])
+        tau_p_pc2_23s = kendall_tau_p(self.sgl_scores[1][1], self.sgl_scores[2][1])
+        tau_b_pc1_12s = kendall_tau_b(self.sgl_scores[0][0], self.sgl_scores[1][0])
+        tau_b_pc1_23s = kendall_tau_b(self.sgl_scores[1][0], self.sgl_scores[2][0])
+        tau_b_pc2_12s = kendall_tau_b(self.sgl_scores[0][1], self.sgl_scores[1][1])
+        tau_b_pc2_23s = kendall_tau_b(self.sgl_scores[1][1], self.sgl_scores[2][1])
+        print("PC1, Phases 1 <-> 2: %.2f / %.2f" % (tau_p_pc1_12s, tau_b_pc1_12s))
+        print("PC2, Phases 1 <-> 2: %.2f / %.2f" % (tau_p_pc2_12s, tau_b_pc2_12s))
+        print("PC1, Phases 2 <-> 3: %.2f / %.2f" % (tau_p_pc1_23s, tau_b_pc1_23s))
+        print("PC2, Phases 2 <-> 3: %.2f / %.2f" % (tau_p_pc2_23s, tau_b_pc2_23s)) 
+
+        print()
 
 # Global functions
 
@@ -166,52 +208,133 @@ def single_submission_score(scores, confis):
         return -2
 
 
-def kendall_tau_ranks(scores):
+def kendall_tau_a(scores1, scores2):
     """
-    Given a list of n scores, return a list of ranks. This is needed in
-    function kendall_tau below.
+    Computes a distance measure based on variant A of the Kendall tau
+    correlation.  This correlation is (nc - nd) / N, where nc is the number of
+    concordant pairs, nd is the number of discordant pairs, and N = n * (n - 1)
+    / 2 is the number of all pairs i, j with j < i (we could also consider all
+    pairs i, j with i < j). A pair i, j is concordant if the relation between
+    scores1[i] and scores2[j] and the relation between scores2[i] and
+    scores2[j] are both < or both >. The pair is discordant if one relation is
+    < and the other is >. If one or both relations are ==, the pair is counted
+    as neither discordant nor concordant.
 
-    If all n scores are distinct, return i for the score that comes i-th in
-    the sorted order of scores. If a score occurs multiple times, all
-    occurrences of that score get the same rank and that rank is the average
-    of the ranks these scores would receive if they were minimally perturbed
-    so as to be distinct. See the doctest for an example.
+    The correlation is a number in the range [-1, 1]. We obtain a normalized
+    distance in the range [0, 1] by taking (1 - correlation) / 2.
 
-    >>> kendall_tau_ranks([4, 2, 3, 1])
-    [4.0, 2.0, 3.0, 1.0]
-    >>> kendall_tau_ranks([3, 2, 2, 1])
-    [4.0, 2.5, 2.5, 1.0]
+    When there are no ties, we have nc = N - nd and the correlation becomes
+    1 - 2 * nd / N, and the distance is then simply nd / N.
+
+    If there are many ties, this correlation is closer to 0 than for tau_a and
+    tau_p versions below, where the demoninator is smaller. For a positive
+    correlation, this means a larger distance.
+
+    >>> kendall_tau_a([1, 2, 3, 4], [2, 3, 4, 5])
+    0.0
+    >>> kendall_tau_a([1, 2, 2, 4], [2, 3, 3, 5]) # doctest:+ELLIPSIS
+    0.0833...
+    >>> kendall_tau_a([1, 2, 3, 4], [2, 3, 3, 5]) # doctest:+ELLIPSIS
+    0.0833...
+    >>> kendall_tau_a([1, 2, 3, 4], [5, 3, 2, 1])
+    1.0
+    >>> kendall_tau_a([1, 2, 3, 4], [5, 3, 3, 1]) # doctest:+ELLIPSIS
+    0.9166...
+    >>> kendall_tau_a([1, 2, 2, 4], [5, 3, 3, 1]) # doctest:+ELLIPSIS
+    0.9166...
     """
 
-    # Compute buckets of the same score.
-    buckets = {}
-    for i, s in enumerate(scores):
-        if s not in buckets:
-            buckets[s] = []
-        buckets[s].append(i)
-    # Iterate over buckets and distribute ranks.
-    last_rank = 0
-    ranks = list(range(0, len(scores)))
-    for s in sorted(buckets.keys()):
-        n = len(buckets[s])
-        # Average ties
-        rank = last_rank + ((n + 1) / float(2))
-        for i in buckets[s]:
-            ranks[i] = rank
-        last_rank += n
-    return ranks
+    num_discordant_pairs = 0
+    num_concordant_pairs = 0
+    assert len(scores1) == len(scores2)
+    n = len(scores1)
+    for i in range(n):
+        for j in range(i):
+            # Note that (x > y) - (x < y) = sign(x) in { -1, 0, +1 }
+            cmp1 = (scores1[i] > scores1[j]) - (scores1[i] < scores1[j])
+            cmp2 = (scores2[i] > scores2[j]) - (scores2[i] < scores2[j])
+            if cmp1 * cmp2 == +1:
+                num_concordant_pairs += 1
+            if cmp1 * cmp2 == -1:
+                num_discordant_pairs += 1
+    num_all_pairs = n * (n - 1) / 2
+    correlation = (num_concordant_pairs - num_discordant_pairs) / num_all_pairs
+    return (1 - correlation) / 2
 
 
-def kendall_tau(scores1, scores2, p=0.5):
+def kendall_tau_b(scores1, scores2):
+    """
+    Distance measure based on variant b of the Kendall tau correlation, which
+    is computed as the ratio of num_concordant_pairs - num_discordant_pairs
+    (nc - nd) divided by the geometric mean of the number of non-tied pairs in
+    the first list (np1) and number of non-tied pairs in the second list (np2).
+
+    The correlation is a number in the range [-1, 1]. From this, we compute
+    the normalized distance as (1 - correlation) / 2, which is in [0, 1]. A
+    perfect correlation of 1 than corresponds to a normalized distance of 0.
+
+    Test case 1: nc = 6, nd = 0, np1 = np2 = 6
+    >>> kendall_tau_b([1, 2, 3, 4], [2, 3, 4, 5])
+    0.0
+
+    Test case 2: nc = 5, nd = 0, np1 = np2 = 5
+    >>> kendall_tau_b([1, 2, 2, 4], [2, 3, 3, 5])
+    0.0
+
+    Test case 3: nc = 5, nd = 0, np1 = 6, np2 = 5, 5/sqrt(30) = 0.9128...
+    >>> kendall_tau_b([1, 2, 3, 4], [2, 3, 3, 5]) # doctest:+ELLIPSIS,
+    0.04356...
+
+    Test case 4: nc = 0, nd = 6, np1 = np2 = 6
+    >>> kendall_tau_b([1, 2, 3, 4], [5, 3, 2, 1])
+    1.0
+
+    Test case 5: nc = 0, nd = 5, np1 = np2 = 5
+    >>> kendall_tau_b([1, 2, 2, 4], [5, 3, 3, 1])
+    1.0
+
+    Test case 6: nc = 0, nd = 3, np1 = 6, np2 = 3, -3/sqrt(18) = -0.7071...
+    >>> kendall_tau_b([1, 2, 3, 4], [5, 3, 3, 3]) # doctest:+ELLIPSIS
+    0.8535...
+    """
+
+    # Compute the number of concordant and discordant pairs, as well as, for
+    # each list, the number of index pairs without ties.
+    assert len(scores1) == len(scores2)
+    n = len(scores1)
+    num_concordant_pairs = 0
+    num_discordant_pairs = 0
+    num_index_pairs_without_ties_1 = 0
+    num_index_pairs_without_ties_2 = 0
+    for i in range(n):
+        for j in range(i):
+            # Note that (x > y) - (x < y) = sign(x) in { -1, 0, +1 }
+            cmp1 = (scores1[i] > scores1[j]) - (scores1[i] < scores1[j])
+            cmp2 = (scores2[i] > scores2[j]) - (scores2[i] < scores2[j])
+            if cmp1 * cmp2 == +1:
+                num_concordant_pairs += 1
+            if cmp1 * cmp2 == -1:
+                num_discordant_pairs += 1
+            if cmp1 != 0:
+                num_index_pairs_without_ties_1 += 1
+            if cmp2 != 0:
+                num_index_pairs_without_ties_2 += 1
+    correlation = (num_concordant_pairs - num_discordant_pairs) / \
+            (math.sqrt(num_index_pairs_without_ties_1 *
+                  num_index_pairs_without_ties_2))
+    return (1 - correlation) / 2
+
+
+def kendall_tau_p(scores1, scores2, p=0.50):
     """
     Compute the p-normalized Kendall Tau as described in Fagin et al.:
     Comparing and Aggregating Rankings with Ties, PODS 2004
     https://dl.acm.org/citation.cfm?id=1055568
 
-    For each pair i, j with i < j compare the order of the ranks of scores1[i]
-    and scores1[j] with the order of the ranks of scores2[i] and scores2[j]. If
-    the order is the same, there is no penalty. If the order is opposite, there
-    is a penalty of one. If the ranks are the same for exactly one of the score
+    For each pair i, j with i < j compare the order of scores1[i] and
+    scores1[j] with the order of the ranks of scores2[i] and scores2[j]. If the
+    order is the same, there is no penalty. If the order is opposite, there is
+    a penalty of one. If the ranks are the same for exactly one of the score
     lists, the penalty is p (default 0.5).
     
     The result is then simply the average of these penalties. This is different
@@ -225,58 +348,51 @@ def kendall_tau(scores1, scores2, p=0.5):
     are six pairs and the order is the same for five of them and for exactly
     one pair (comparing the scores at indices 1 and 2), the penalty is 0.5
 
-    >>> kendall_tau([1, 2, 3], [4, 5, 6])
+    >>> kendall_tau_p([1, 2, 3], [4, 5, 6])
     0.0
-    >>> kendall_tau([1, 2, 3], [6, 5, 4])
+    >>> kendall_tau_p([1, 2, 3], [6, 5, 4])
     1.0
-    >>> kendall_tau([4, 2, 3, 1], [3, 2, 2, 1]) # doctest:+ELLIPSIS
-    0.08333...
-    >>> kendall_tau([3, 2, 2, 1], [4, 2, 3, 1]) # doctest:+ELLIPSIS
-    0.08333...
+    >>> kendall_tau_p([4, 2, 3, 1], [3, 2, 2, 1]) # doctest:+ELLIPSIS
+    0.08703...
+    >>> kendall_tau_p([3, 2, 2, 1], [4, 2, 3, 1]) # doctest:+ELLIPSIS
+    0.08703...
     """
 
-    if len(scores1) == 1:
-        return 0.0
-    # First compute the ranks of the scores for each list.
-    ranks1 = kendall_tau_ranks(scores1)
-    ranks2 = kendall_tau_ranks(scores2)
-    # Enumerate all possible pairs i, j with i < j.
-    pairs = itertools.combinations(range(0, len(scores1)), 2)
-    penalty = 0.0
-    # Count the number of pairs in the second list (the ground truth), where
-    # pairs with equal scores count only p (default 0.5, see above).
-    num_ordered = 0.0
-    for i, j in pairs:
-        # The ranks of scores i and j in both score lists.
-        a_i = ranks1[i]
-        a_j = ranks1[j]
-        b_i = ranks2[i]
-        b_j = ranks2[j]
-        # CASE 1: Scores i and j are different in both lists. Then there is a
-        # penalty of 1.0 iff the order does not match.
-        if a_i != a_j and b_i != b_j:
-            if (a_i < a_j and b_i < b_j) or (a_i > a_j and b_i > b_j):
-                pass
+    assert len(scores1) == len(scores2)
+    n = len(scores1)
+    num_discordant_pairs = 0.0
+    # Count the number of discordant pairs, where pairs which are tied in the
+    # one list and different in the other count p (default 0.5, see above).
+    num_pairs_1 = 0.0
+    num_pairs_2 = 0.0
+    for i in range(n):
+        for j in range(i):
+            # Note that (x > y) - (x < y) = sign(x) in { -1, 0, +1 }
+            cmp1 = (scores1[i] > scores1[j]) - (scores1[i] < scores1[j])
+            cmp2 = (scores2[i] > scores2[j]) - (scores2[i] < scores2[j])
+            if cmp1 * cmp2 == +1:
+                num_pairs_1 += 1
+                num_pairs_2 += 1
+            elif cmp1 * cmp2 == -1:
+                num_discordant_pairs += 1
+                num_pairs_1 += 1
+                num_pairs_2 += 1
+            elif cmp1 != 0 or cmp2 != 0:
+                num_discordant_pairs += p
+                if cmp1 == 0:
+                    # cmp1 == 0, cmp2 != 0
+                    num_pairs_1 += p
+                    num_pairs_2 += 1
+                else:
+                    # cmp1 != 0, cmp2 == 0
+                    num_pairs_1 += 1
+                    num_pairs_2 += p
             else:
-                penalty += 1
-        # CASE 2: Scores i and j are the same in both lists. Then there is no
-        # penalty.
-        elif a_i == a_j and b_i == b_j:
-            pass
-        # CASE 3: Scores i and j are the same in one list, but different in the
-        # other. Then there is a penalty of p (default value 0.5, see above).
-        else:
-            penalty += p
-        # All pairs have a weight of 1. In the original paper, the weight is p
-        # if the scores in list 2 (assumed to be the ground truth) as equal.
-        if b_i != b_j:
-            num_ordered += 1
-        else:
-            num_ordered += 1 # Original definition: += p
+                # cmp1 == 0, cmp2 == 0
+                num_pairs_1 += p
+                num_pairs_2 += p
     # Return the average penalty.
-    return penalty / num_ordered
-
-
+    return num_discordant_pairs / math.sqrt(num_pairs_1 * num_pairs_2)
 
 if __name__ == "__main__":
     ee = EsaExperimentData()
