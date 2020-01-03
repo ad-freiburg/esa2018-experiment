@@ -6,31 +6,93 @@ Author: Hannah Bast <bast@cs.uni-freiburg.de>
 
 import sys
 import math
+import random
+import pathlib
 
+# Dictionary with long names for the score types above.
+score_type_names = {
+    "av": "confidence-weighted average score, from [-2..+2]",
+    "l5": "rule-based score from {+2, +1, 0, -1, -2}",
+    "l3u": "score from {+2, +1, -1} via l5, where -2, -1, 0 -> -1",
+    "l3m": "score from {+1, 0, -1} via l5, where -2 -> -1 and +2 -> +1",
+    "l3l": "score from {+1, -1, -2} via l5, where +2, +1, 0 -> +1",
+    "l2u": "score from {+2, 0} via l5, where -2, -1, 0, +1 -> 0",
+    "l2m": "score from {+1, -1} via l5, where +2, +1 -> +1",
+    "l2l": "score from {0, -2} via l5, where -1, 0, +1, +2 -> 0",
+    "av5": "av score, rounded to nearest score from {-2, -1, 0, +1, +2}",
+    "av3u": "av5 score reduced to {+1, 0, -1} like l5 is reduced to l3u",
+    "av3m": "av5 score reduced to {+1, 0, -1} like l5 is reduced to l3m",
+    "av3l": "av5 score reduced to {+1, 0, -1} like l5 is reduced to l3l",
+    "av2u": "av5 score, reduced to {+1, -1} like l5 is reduced to l2u",
+    "av2m": "av5 score, reduced to {+1, -1} like l5 is reduced to l2m",
+    "av2l": "av5 score, reduced to {+1, -1} like l5 is reduced to l2l",
+    "avr": "fixed score from [-2..+2] with added Gaussian noise",
+    "l5r": "random score from {+2,+1,0,-1,-2}, based on avr",
+    "l3r": "random score from {+1,0,-1}, based on l5r, mapping from l3m",
+    "l2r": "random score from {+1,-1}, based on l5r, mapping from l2m",
+    "rnd": "completely random score from [-2..+2]"
+}
+
+# The score labels for the discrete ones of these. This is need to print the
+# confusion matrices. The + in the +0 is important (or change code).
+score_labels_by_type = {
+    "l5": ["+2", "+1", "+0", "-1", "-2"],
+    "l3u": ["+2", "+1", "-1"],
+    "l3m": ["+1", "+0", "-1"],
+    "l3l": ["+1", "-1", "-2"],
+    "l2u": ["+2", "+0"],
+    "l2m": ["+1", "-1"],
+    "l2l": ["+0", "-2"],
+    "av5": ["+2", "+1", "+0", "-1", "-2"],
+    "av3u": ["+2", "+1", "-1"],
+    "av3m": ["+1", "+0", "-1"],
+    "av3l": ["+1", "-1", "-2"],
+    "av2u": ["+2", "+0"],
+    "av2m": ["+1", "-1"],
+    "av2l": ["+0", "-2"],
+    "avr": ["+2", "+1", "+0", "-1", "-2"],
+    "l5r": ["+2", "+1", "+0", "-1", "-2"],
+    "l3r": ["+1", "+0", "-1"],
+    "l2r": ["+1", "-1"]
+}
 
 # Usage info printed when calling script without arguments.
 usage_info = """
-Usage: python3 analyze.py <score type>
+Usage: python3 analyze.py <score type> ...
 
 Analyze the similarity of the rankings produced by the two PCs, where
 <score type> specifies which score is used for each submission and PC:
 
-av :   confidence-weighted average scores of the reviewers
-l5 :   single-submission score from {+2, +1, 0, -1, -2}
-l3 :   l5-score with +2, +1 -> +1 and 0 -> 0 and -1, -2 -> -1
-av5:   av scores, rounded to nearest score from {+2, +1, 0, -1, -2}
-av3:   av5 scores, reduced to {+1, 0, -1} like l5 -> l3
-avr:   random average score (NYI)
-l5r:   random l5 score (NYI)
-l3r:   random l3 score(NYI)
+av :   """ + score_type_names["av"] + """
+l5 :   """ + score_type_names["l5"] + """
+l3u:   """ + score_type_names["l3u"] + """
+l3m:   """ + score_type_names["l3m"] + """
+l3l:   """ + score_type_names["l3l"] + """
+l2u:   """ + score_type_names["l2u"] + """
+l2m:   """ + score_type_names["l2m"] + """
+l2l:   """ + score_type_names["l2l"] + """
+av5:   """ + score_type_names["av5"] + """
+av3u:   """ + score_type_names["av3u"] + """
+av3m:   """ + score_type_names["av3m"] + """
+av3l:   """ + score_type_names["av3l"] + """
+av2u:   """ + score_type_names["av2u"] + """
+av2m:   """ + score_type_names["av2m"] + """
+av2l:   """ + score_type_names["av2l"] + """
+avr:   """ + score_type_names["avr"] + """
+l5r:   """ + score_type_names["l5r"] + """
+l3r:   """ + score_type_names["l3r"] + """
+l2r:   """ + score_type_names["l2r"] + """
+rnd:   """ + score_type_names["rnd"] + """
+
+If multiple score types are specified, the analysis is dann for each score
+type, one after the other.
 """
 
-# Dictionary with long names for the score types above.
-score_type_names = {"av": "average score",
-                    "l5": "single-submission score from {-2,-1,0,+1,+2}",
-                    "l3": "single-submission score from {-1,0,+1}",
-                    "av5": "av score, rounded to nearest l5 score",
-                    "av3": "obtainde from av5 score, like l3 from l5"}
+
+# Standard deviation of Gaussian noise for avr, l5r, l3r, l2r
+#
+# Note: a value of 0.8 gives the same Kendall tau as the real data
+score_noise_standard_deviation = 0.8
 
 
 class EsaExperimentData:
@@ -42,6 +104,7 @@ class EsaExperimentData:
         """
 
         self.all_scores = [[[], []], [[], []], [[], []]]
+        self.use_ansi_colors = True
 
     def read_score_file(self, file_name):
         """
@@ -143,31 +206,98 @@ class EsaExperimentData:
         [1.0, 2.0, 0.0]
         >>> ee.compute_scores([[(+1, 3), (+2, 3), (+0, 4)]], "l5")
         [1]
-        >>> ee.compute_scores([[(+1, 3)], [(+2, 3)], [(-2, 2)]], "l3")
-        [0, 1, -1]
+        >>> test_input = [[(+1, 3), (+2, 3)], [(+2, 3)], [(-2, 3), (-1, 3)]]
+        >>> ee.compute_scores(test_input, "l5")
+        [1, 2, -2]
+        >>> ee.compute_scores(test_input, "l3u")
+        [1, 2, -1]
+        >>> ee.compute_scores(test_input, "l3m")
+        [1, 1, -1]
+        >>> ee.compute_scores(test_input, "l3l")
+        [1, 1, -2]
+        >>> ee.compute_scores(test_input, "l2u")
+        [0, 2, 0]
+        >>> ee.compute_scores(test_input, "l2m")
+        [1, 1, -1]
+        >>> ee.compute_scores(test_input, "l2l")
+        [0, 0, -2]
         >>> ee.compute_scores([[(+1, 3), (+2, 3), (+2, 3)]], "av5")
         [2]
-        >>> ee.compute_scores([[(+1, 3), (+2, 3), (+2, 3)]], "av3")
+        >>> ee.compute_scores([[(+1, 3), (+2, 3), (+2, 3)]], "av3m")
+        [1]
+        >>> ee.compute_scores([[(+1, 3), (+2, 3), (+2, 3)]], "av2m")
         [1]
         """
 
         sc_pairs = score_confidence_pairs
+        l5_to_l3u_map = {+2: +2, +1: +1, +0: -1, -1: -1, -2: -1}
+        l5_to_l3m_map = {+2: +1, +1: +1, +0: +0, -1: -1, -2: -1}
+        l5_to_l3l_map = {+2: +1, +1: +1, +0: +1, -1: -1, -2: -2}
+        l5_to_l2u_map = {+2: +2, +1: +0, +0: +0, -1: +0, -2: +0}
+        l5_to_l2m_map = {+2: +1, +1: +1, +0: -1, -1: -1, -2: -1}
+        l5_to_l2l_map = {+2: +0, +1: +0, +0: +0, -1: +0, -2: -2}
         if score_type == "av":
             return list(map(self.average_score, sc_pairs))
         elif score_type == "l5":
             return list(map(self.l5_score, sc_pairs))
-        elif score_type == "l3":
-            l5tol3_map = {2:1, 1:1, 0:0, -1:-1, -2:-1}
-            return list(map(lambda x: l5tol3_map[x],
+        elif score_type == "l3u":
+            return list(map(lambda x: l5_to_l3u_map[x],
                             self.compute_scores(sc_pairs, "l5")))
-        if score_type == "av5":
-            return list(map(lambda x: round(x), 
+        elif score_type == "l3m":
+            return list(map(lambda x: l5_to_l3m_map[x],
+                            self.compute_scores(sc_pairs, "l5")))
+        elif score_type == "l3l":
+            return list(map(lambda x: l5_to_l3l_map[x],
+                            self.compute_scores(sc_pairs, "l5")))
+        elif score_type == "l2u":
+            return list(map(lambda x: l5_to_l2u_map[x],
+                            self.compute_scores(sc_pairs, "l5")))
+        elif score_type == "l2m":
+            return list(map(lambda x: l5_to_l2m_map[x],
+                            self.compute_scores(sc_pairs, "l5")))
+        elif score_type == "l2l":
+            return list(map(lambda x: l5_to_l2l_map[x],
+                            self.compute_scores(sc_pairs, "l5")))
+        elif score_type == "av5":
+            return list(map(lambda x: round(x),
                             self.compute_scores(sc_pairs, "av")))
-        if score_type == "av3":
-            l5tol3_map = {2:1, 1:1, 0:0, -1:-1, -2:-1}
-            return list(map(lambda x: l5tol3_map[x],
+        elif score_type == "av3u":
+            return list(map(lambda x: l5_to_l3u_map[x],
                             self.compute_scores(sc_pairs, "av5")))
-
+        elif score_type == "av3m":
+            return list(map(lambda x: l5_to_l3m_map[x],
+                            self.compute_scores(sc_pairs, "av5")))
+        elif score_type == "av3l":
+            return list(map(lambda x: l5_to_l3l_map[x],
+                            self.compute_scores(sc_pairs, "av5")))
+        elif score_type == "av2u":
+            return list(map(lambda x: l5_to_l3u_map[x],
+                            self.compute_scores(sc_pairs, "av5")))
+        elif score_type == "av2m":
+            return list(map(lambda x: l5_to_l3m_map[x],
+                            self.compute_scores(sc_pairs, "av5")))
+        elif score_type == "av2l":
+            return list(map(lambda x: l5_to_l3l_map[x],
+                            self.compute_scores(sc_pairs, "av5")))
+        elif score_type == "avr":
+            # Evenly spaced score from 2 to -2, with added Gaussian noise and
+            # truncated to [-2..2] again.
+            return [min(2, max(-2,
+                    2 - 4 * score / (len(sc_pairs) - 1) +
+                    random.gauss(0, score_noise_standard_deviation)))
+                    for score in range(len(sc_pairs))]
+        elif score_type == "l5r":
+            return list(map(lambda x: round(x),
+                            self.compute_scores(sc_pairs, "avr")))
+        elif score_type == "l3r":
+            return list(map(lambda x: l5_to_l3m_map[x],
+                            self.compute_scores(sc_pairs, "l5r")))
+        elif score_type == "l2r":
+            return list(map(lambda x: l5_to_l2m_map[x],
+                            self.compute_scores(sc_pairs, "l5r")))
+        elif score_type == "rnd":
+            return [random.random() * 4 - 2
+                    for _ in range(len(sc_pairs))]
 
     def average_score(self, score_confidence_pairs):
         """
@@ -232,68 +362,196 @@ class EsaExperimentData:
         else:
             return -2
 
-    def print_statistics(self, score_type):
+    def print_scores(self, scores, scores_file_base_name, subdir_name):
+        """
+        Print the scores to files <base_name>_phase<i>_pc<j>.txt in the given
+        sub-directory. Create the sub-directory if it does not already exist.
+        """
+
+        print()
+        print("Printing scores to sub-directory \"%s\"" % subdir_name)
+        print()
+
+        pathlib.Path(subdir_name).mkdir(exist_ok=True)
+        base_name = scores_file_base_name
+        file_names = []
+        for i in range(3):
+            for j in range(2):
+                file_name = "tmp/%s-phase%d-pc%d.txt" % (base_name, i, j)
+                file_names.append(file_name)
+                with open(file_name, "w+") as file:
+                    file.writelines("%.2f\n" % score for score in scores[i][j])
+
+        gnuplot_script_name = "%s/plot-%s.p" % (subdir_name, score_type)
+        print("Writing gnuplot script to show all scores, call like this:")
+        print()
+        print("\x1b[34mgnuplot -c %s\x1b[0m" % gnuplot_script_name)
+        print()
+        is_histogram = any(char.isdigit() for char in score_type)
+        if not is_histogram:
+            plot_arg = "\"< sort -n %s\""
+            gnuplot_script = \
+                "set key left top\n" + \
+                "plot " + ", ".join(list(map(lambda x: plot_arg % x,
+                                             file_names))) + "\n" + \
+                "pause mouse"
+        else:
+            colors = ["#FFA07A", "#CD5C5C"]
+            plot_arg = "\"%s\" " \
+                       "using ($1%+.2f):(0,1) smooth freq with boxes " \
+                       "linecolor rgb \"%s\""
+            gnuplot_script = \
+                "set key left top\n" + \
+                "set boxwidth 0.1\n" + \
+                "set style fill solid\n" + \
+                "plot [] [:50] " + ", ".join(
+                    list(map(lambda i, x: plot_arg %
+                             (x, i/10 - 0.30 + 0.05 * (i//2), colors[i % 2]),
+                             *zip(*list(enumerate(file_names)))))) + "\n" + \
+                "pause mouse"
+
+        print("Here is the script (for your curiosity)")
+        print()
+        print(gnuplot_script)
+        print()
+        with open(gnuplot_script_name, "w+") as gnuplot_script_file:
+            print(gnuplot_script, file=gnuplot_script_file)
+
+    def print_kendall_tau(self, scores, score_type):
         """
         Print statistics for the given score type. See the usage_info string at
         the beginning of this file for the options. See function compute_scores
         for the details of how the scores are computed for each type.
         """
 
-        if score_type not in score_type_names:
+        print()
+        print("Normalized Kendall tau distance (a / b / p)"
+              "between PCs and phases:")
+        print()
+        tau_a_1 = kendall_tau_a(scores[0][0], scores[0][1])
+        tau_a_2 = kendall_tau_a(scores[1][0], scores[1][1])
+        tau_a_3 = kendall_tau_a(scores[2][0], scores[2][1])
+        tau_b_1 = kendall_tau_b(scores[0][0], scores[0][1])
+        tau_b_2 = kendall_tau_b(scores[1][0], scores[1][1])
+        tau_b_3 = kendall_tau_b(scores[2][0], scores[2][1])
+        tau_p_1 = kendall_tau_p(scores[0][0], scores[0][1])
+        tau_p_2 = kendall_tau_p(scores[1][0], scores[1][1])
+        tau_p_3 = kendall_tau_p(scores[2][0], scores[2][1])
+        print("Phase 1: %.2f / %.2f / %.2f" % (tau_a_1, tau_b_1, tau_p_1))
+        print("Phase 2: %.2f / %.2f / %.2f" % (tau_a_2, tau_b_2, tau_p_2))
+        print("Phase 3: %.2f / %.2f / %.2f" % (tau_a_3, tau_b_3, tau_p_3))
+        print()
+        tau_a_pc1_12 = kendall_tau_a(scores[0][0], scores[1][0])
+        tau_a_pc1_23 = kendall_tau_a(scores[1][0], scores[2][0])
+        tau_a_pc2_12 = kendall_tau_a(scores[0][1], scores[1][1])
+        tau_a_pc2_23 = kendall_tau_a(scores[1][1], scores[2][1])
+        tau_b_pc1_12 = kendall_tau_b(scores[0][0], scores[1][0])
+        tau_b_pc1_23 = kendall_tau_b(scores[1][0], scores[2][0])
+        tau_b_pc2_12 = kendall_tau_b(scores[0][1], scores[1][1])
+        tau_b_pc2_23 = kendall_tau_b(scores[1][1], scores[2][1])
+        tau_p_pc1_12 = kendall_tau_p(scores[0][0], scores[1][0])
+        tau_p_pc1_23 = kendall_tau_p(scores[1][0], scores[2][0])
+        tau_p_pc2_12 = kendall_tau_p(scores[0][1], scores[1][1])
+        tau_p_pc2_23 = kendall_tau_p(scores[1][1], scores[2][1])
+        print("Phases 1 <-> 2, PC1: %.2f / %.2f / %.2f"
+              % (tau_a_pc1_12, tau_b_pc1_12, tau_p_pc1_12))
+        print("Phases 1 <-> 2, PC2: %.2f / %.2f / %.2f"
+              % (tau_a_pc2_12, tau_b_pc2_12, tau_p_pc2_12))
+        print()
+        print("Phases 2 <-> 3, PC1: %.2f / %.2f / %.2f"
+              % (tau_a_pc1_23, tau_b_pc1_23, tau_p_pc1_23))
+        print("Phases 2 <-> 3, PC2: %.2f / %.2f / %.2f"
+              % (tau_a_pc2_23, tau_b_pc2_23, tau_p_pc2_23))
+
+    def print_confusion_matrices(self, scores, score_type, mode):
+        """
+        Print confusion matrices between PCs (mode == "pcs") or between phases
+        (mode == "phases") side by side.
+        """
+
+        if score_type in score_labels_by_type:
+            score_labels = score_labels_by_type[score_type]
+        else:
             print()
-            print("Score type \"%s\" does not exist or is not yet implemented"
-                  % score_type)
-            print(usage_info)
-            sys.exit(1)
-        score_type_name = score_type_names[score_type]
-        print()
-        print("\x1b[1mThe score type is: %s\x1b[0m" % score_type_name)
+            print("! Confusion matrices only work for discrete scores or score"
+                  "type missing from score_labels_by_type in code")
+            print()
+            return
 
-        scores = [[[], []], [[], []], [[], []]]
-        scores[0][0] = self.compute_scores(self.all_scores[0][0], score_type)
-        scores[0][1] = self.compute_scores(self.all_scores[0][1], score_type)
-        scores[1][0] = self.compute_scores(self.all_scores[1][0], score_type)
-        scores[1][1] = self.compute_scores(self.all_scores[1][1], score_type)
-        scores[2][0] = self.compute_scores(self.all_scores[2][0], score_type)
-        scores[2][1] = self.compute_scores(self.all_scores[2][1], score_type)
+        if mode == "pcs":
+            print()
+            print("Confusion matrices between the two PCs for phases 1, 2, 3:")
+            print()
+            score_list_pairs = [(scores[0][0], scores[0][1]),
+                                (scores[1][0], scores[1][1]),
+                                (scores[2][0], scores[2][1])]
+            self.print_confusion_matrices_helper(score_list_pairs,
+                                                 score_labels)
+        elif mode == "phases":
+            print()
+            print("Confusion matrices between phases "
+                  "(PC1 1/2, PC1 2/3, PC2 1/2, PC2 2/3):")
+            print()
+            score_list_pairs = [(scores[0][0], scores[1][0]),
+                                (scores[1][0], scores[2][0]),
+                                (scores[0][1], scores[1][1]),
+                                (scores[1][1], scores[2][1])]
+            self.print_confusion_matrices_helper(score_list_pairs,
+                                                 score_labels)
 
+    def print_confusion_matrices_helper(self, score_list_pairs, score_labels):
+        """
+        Compute the confusion matrices for the given pairs of scores and print
+        them side by side from left to right. Each score must be contained in
+        score_labels, if formatted with %+2d
+
+        >>> ee = EsaExperimentData()
+        >>> ee.use_ansi_colors = False
+        >>> score_list_pairs = [([+1, +1, +0, +0, -1, -1],
+        ...                      [-1, -1, +0, +1, -1, -1])]
+        >>> score_labels = ["+1", "+0", "-1"]
+        >>> ee.print_confusion_matrices_helper(
+        ...     score_list_pairs,
+        ...     score_labels) # doctest: +NORMALIZE_WHITESPACE
+             +1 +0 -1
+        +1    0  0  2
+        +0    1  1  0
+        -1    0  0  2
+        """
+
+        # Compute values of confusion matrices
+        confusion_matrices = []
+        for score_list_pair in score_list_pairs:
+            confusion_matrix = {}
+            for x in score_labels:
+                confusion_matrix[x] = {}
+                for y in score_labels:
+                    confusion_matrix[x][y] = 0
+            assert len(score_list_pair[0]) == len(score_list_pair[1])
+            n = len(score_list_pair[0])
+            for i in range(n):
+                x = "%+d" % score_list_pair[0][i]
+                y = "%+d" % score_list_pair[1][i]
+                confusion_matrix[x][y] += 1
+            confusion_matrices.append(confusion_matrix)
+
+        # Print confusion matrices side by side
+        k = len(confusion_matrices)
+        format_string = "%2s   " + ("%2s " * len(score_labels) + "   ") * k
+        color_codes_by_distance = [30, 34, 36, 31, 31]  # bold, blue, cyan, red
+        print(format_string % tuple([""] + score_labels * k))
         print()
-        print("Kendall tau (p / b / a) between PCs and phases:")
-        print()
-        tau_p_1a = kendall_tau_p(scores[0][0], scores[0][1])
-        tau_p_2a = kendall_tau_p(scores[1][0], scores[1][1])
-        tau_p_3a = kendall_tau_p(scores[2][0], scores[2][1])
-        tau_a_1a = kendall_tau_a(scores[0][0], scores[0][1])
-        tau_a_2a = kendall_tau_a(scores[1][0], scores[1][1])
-        tau_a_3a = kendall_tau_a(scores[2][0], scores[2][1])
-        tau_b_1a = kendall_tau_b(scores[0][0], scores[0][1])
-        tau_b_2a = kendall_tau_b(scores[1][0], scores[1][1])
-        tau_b_3a = kendall_tau_b(scores[2][0], scores[2][1])
-        print("Phase 1: %.2f / %.2f / %.2f" % (tau_p_1a, tau_b_1a, tau_a_1a))
-        print("Phase 2: %.2f / %.2f / %.2f" % (tau_p_2a, tau_b_2a, tau_a_2a))
-        print("Phase 3: %.2f / %.2f / %.2f" % (tau_p_3a, tau_b_3a, tau_a_3a))
-        print()
-        tau_p_pc1_12a = kendall_tau_p(scores[0][0], scores[1][0])
-        tau_p_pc1_23a = kendall_tau_p(scores[1][0], scores[2][0])
-        tau_p_pc2_12a = kendall_tau_p(scores[0][1], scores[1][1])
-        tau_p_pc2_23a = kendall_tau_p(scores[1][1], scores[2][1])
-        tau_b_pc1_12a = kendall_tau_b(scores[0][0], scores[1][0])
-        tau_b_pc1_23a = kendall_tau_b(scores[1][0], scores[2][0])
-        tau_b_pc2_12a = kendall_tau_b(scores[0][1], scores[1][1])
-        tau_b_pc2_23a = kendall_tau_b(scores[1][1], scores[2][1])
-        tau_a_pc1_12a = kendall_tau_a(scores[0][0], scores[1][0])
-        tau_a_pc1_23a = kendall_tau_a(scores[1][0], scores[2][0])
-        tau_a_pc2_12a = kendall_tau_a(scores[0][1], scores[1][1])
-        tau_a_pc2_23a = kendall_tau_a(scores[1][1], scores[2][1])
-        print("PC1, Phases 1 <-> 2: %.2f / %.2f / %.2f"
-              % (tau_p_pc1_12a, tau_b_pc1_12a, tau_a_pc1_12a))
-        print("PC2, Phases 1 <-> 2: %.2f / %.2f / %.2f"
-              % (tau_p_pc2_12a, tau_b_pc2_12a, tau_a_pc2_12a))
-        print("PC1, Phases 2 <-> 3: %.2f / %.2f / %.2f"
-              % (tau_p_pc1_23a, tau_b_pc1_23a, tau_a_pc1_23a))
-        print("PC2, Phases 2 <-> 3: %.2f / %.2f / %.2f"
-              % (tau_p_pc2_23a, tau_b_pc2_23a, tau_a_pc2_23a))
-        print()
+        for x in score_labels:
+            entries = ["%2s" % x]
+            for confusion_matrix in confusion_matrices:
+                for y in score_labels:
+                    color = color_codes_by_distance[abs(int(x) - int(y))]
+                    if self.use_ansi_colors:
+                        entries.append("\x1b[%dm%2s\x1b[0m" %
+                                       (color, confusion_matrix[x][y]))
+                    else:
+                        entries.append("%2s" % confusion_matrix[x][y])
+            print(format_string % tuple(entries))
 
 
 # Global functions
@@ -315,6 +573,15 @@ def kendall_tau_a(scores1, scores2):
 
     When there are no ties, we have nc = N - nd and the correlation becomes
     1 - 2 * nd / N, and the distance is then simply nd / N.
+
+    When there are ties, we have nc = N - nd - nt, where nt is the number of
+    pairs, which are neither concordant or discordant (that is, one or both
+    relations are ==). Then the correlation becomes 1 - 2 * (nd + nt/2) / N and
+    the distance is (nd + nt/2) / N. That is, it's like counting each tied pair
+    like half a concordant pair. This is very similar to variant p of the
+    Kendall tau below with p = 0.5, except that there pairs which are tied on
+    both sides are counted as 0, and the denumerator decreases a bit for every
+    tied pair.
 
     If there are many ties, this correlation is closer to 0 than for tau_a and
     tau_p versions below, where the demoninator is smaller. For a positive
@@ -486,10 +753,52 @@ def kendall_tau_p(scores1, scores2, p=0.50):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2 or sys.argv[1].endswith("help"):
+    if len(sys.argv) < 2 or sys.argv[1].endswith("help"):
         print(usage_info)
         sys.exit(1)
-    score_type = sys.argv[1]
+
+    modes = []
+    while sys.argv[-1].startswith("--"):
+        modes.append(sys.argv.pop())
+    modes.reverse()
+    if len(modes) == 0:
+        modes = ["--kendall"]
+
     ee = EsaExperimentData()
     ee.read_all_score_files()
-    ee.print_statistics(score_type)
+
+    for score_type in sys.argv[1:]:
+        if score_type not in score_type_names:
+            print()
+            print("Score type \"%s\" does not exist or is not yet implemented"
+                  % score_type)
+            print(usage_info)
+            sys.exit(1)
+
+        scores = [[[], []], [[], []], [[], []]]
+        scores[0][0] = ee.compute_scores(ee.all_scores[0][0], score_type)
+        scores[0][1] = ee.compute_scores(ee.all_scores[0][1], score_type)
+        scores[1][0] = ee.compute_scores(ee.all_scores[1][0], score_type)
+        scores[1][1] = ee.compute_scores(ee.all_scores[1][1], score_type)
+        scores[2][0] = ee.compute_scores(ee.all_scores[2][0], score_type)
+        scores[2][1] = ee.compute_scores(ee.all_scores[2][1], score_type)
+
+        score_type_name = score_type_names[score_type]
+        print()
+        print("\x1b[1mScore type \"%s\": %s\x1b[0m" %
+              (score_type, score_type_name))
+
+        for mode in modes:
+            if mode == "--kendall":
+                ee.print_kendall_tau(scores, score_type)
+            elif mode == "--print":
+                ee.print_scores(scores, score_type, "tmp")  # in subdir "tmp"
+            elif mode == "--confusion-pcs":
+                ee.print_confusion_matrices(scores, score_type, "pcs")
+            elif mode == "--confusion-phases":
+                ee.print_confusion_matrices(scores, score_type, "phases")
+            else:
+                print()
+                print("Invalid mode: \"%s\" ... skipping it" % mode)
+
+        print()
