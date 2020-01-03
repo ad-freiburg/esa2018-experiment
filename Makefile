@@ -7,3 +7,8 @@ test:
 
 checkstyle:
 	flake8 *.py
+
+clean:
+	rm -f test.tsv
+	rm -rf __pycache__
+	rm -rf tmp
