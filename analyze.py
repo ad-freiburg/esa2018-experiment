@@ -15,17 +15,18 @@ score_type_names = {
     "l5": "rule-based score from {+2, +1, 0, -1, -2}",
     "l3u": "score from {+2, +1, -1} via l5, where -2, -1, 0 -> -1",
     "l3m": "score from {+1, 0, -1} via l5, where -2 -> -1 and +2 -> +1",
-    "l3l": "score from {+1, -1, -2} via l5, where +2, +1, 0 -> +1",
+    "l3l": "score from {+1, -1, -2} via l5, where +2 -> +1 and 0 -> -1",
     "l2u": "score from {+2, 0} via l5, where -2, -1, 0, +1 -> 0",
     "l2m": "score from {+1, -1} via l5, where +2, +1 -> +1",
     "l2l": "score from {0, -2} via l5, where -1, 0, +1, +2 -> 0",
+    "avt": "av score if l5 in {+2, +1} and 0 otherwise",
     "av5": "av score, rounded to nearest score from {-2, -1, 0, +1, +2}",
-    "av3u": "av5 score reduced to {+1, 0, -1} like l5 is reduced to l3u",
+    "av3u": "av5 score reduced to {+2, +1, -1} like l5 is reduced to l3u",
     "av3m": "av5 score reduced to {+1, 0, -1} like l5 is reduced to l3m",
-    "av3l": "av5 score reduced to {+1, 0, -1} like l5 is reduced to l3l",
-    "av2u": "av5 score, reduced to {+1, -1} like l5 is reduced to l2u",
+    "av3l": "av5 score reduced to {+1, -1, -2} like l5 is reduced to l3l",
+    "av2u": "av5 score, reduced to {+2, 0} like l5 is reduced to l2u",
     "av2m": "av5 score, reduced to {+1, -1} like l5 is reduced to l2m",
-    "av2l": "av5 score, reduced to {+1, -1} like l5 is reduced to l2l",
+    "av2l": "av5 score, reduced to {0, -2} like l5 is reduced to l2l",
     "avr": "fixed score from [-2..+2] with added Gaussian noise",
     "l5r": "random score from {+2,+1,0,-1,-2}, based on avr",
     "l3r": "random score from {+1,0,-1}, based on l5r, mapping from l3m",
@@ -191,7 +192,7 @@ class EsaExperimentData:
 
     def compute_scores(self, score_confidence_pairs, score_type):
         """
-        Given a list of score-confidence pairs, compute a single score
+        Given a list of lists of score-confidence pairs, compute a single score
         depending on the given type. See the usage_info string at the beginning
         of the file for the options, see the test cases for examples, and see
         the code for details.
@@ -206,7 +207,7 @@ class EsaExperimentData:
         [1.0, 2.0, 0.0]
         >>> ee.compute_scores([[(+1, 3), (+2, 3), (+0, 4)]], "l5")
         [1]
-        >>> test_input = [[(+1, 3), (+2, 3)], [(+2, 3)], [(-2, 3), (-1, 3)]]
+        >>> test_input = [[(+1, 5), (+2, 3)], [(+2, 3)], [(-2, 5), (-1, 3)]]
         >>> ee.compute_scores(test_input, "l5")
         [1, 2, -2]
         >>> ee.compute_scores(test_input, "l3u")
@@ -221,18 +222,28 @@ class EsaExperimentData:
         [1, 1, -1]
         >>> ee.compute_scores(test_input, "l2l")
         [0, 0, -2]
-        >>> ee.compute_scores([[(+1, 3), (+2, 3), (+2, 3)]], "av5")
-        [2]
-        >>> ee.compute_scores([[(+1, 3), (+2, 3), (+2, 3)]], "av3m")
-        [1]
-        >>> ee.compute_scores([[(+1, 3), (+2, 3), (+2, 3)]], "av2m")
-        [1]
+        >>> ee.compute_scores(test_input, "av5")
+        [1, 2, -2]
+        >>> ee.compute_scores(test_input, "av3u")
+        [1, 2, -1]
+        >>> ee.compute_scores(test_input, "av3m")
+        [1, 1, -1]
+        >>> ee.compute_scores(test_input, "av3l")
+        [1, 1, -2]
+        >>> ee.compute_scores(test_input, "av2u")
+        [0, 2, 0]
+        >>> ee.compute_scores(test_input, "av2m")
+        [1, 1, -1]
+        >>> ee.compute_scores(test_input, "av2l")
+        [0, 0, -2]
+        >>> ee.compute_scores(test_input, "avt")
+        [1.375, 2.0, 0.0]
         """
 
         sc_pairs = score_confidence_pairs
         l5_to_l3u_map = {+2: +2, +1: +1, +0: -1, -1: -1, -2: -1}
         l5_to_l3m_map = {+2: +1, +1: +1, +0: +0, -1: -1, -2: -1}
-        l5_to_l3l_map = {+2: +1, +1: +1, +0: +1, -1: -1, -2: -2}
+        l5_to_l3l_map = {+2: +1, +1: +1, +0: -1, -1: -1, -2: -2}
         l5_to_l2u_map = {+2: +2, +1: +0, +0: +0, -1: +0, -2: +0}
         l5_to_l2m_map = {+2: +1, +1: +1, +0: -1, -1: -1, -2: -1}
         l5_to_l2l_map = {+2: +0, +1: +0, +0: +0, -1: +0, -2: -2}
@@ -271,14 +282,18 @@ class EsaExperimentData:
             return list(map(lambda x: l5_to_l3l_map[x],
                             self.compute_scores(sc_pairs, "av5")))
         elif score_type == "av2u":
-            return list(map(lambda x: l5_to_l3u_map[x],
+            return list(map(lambda x: l5_to_l2u_map[x],
                             self.compute_scores(sc_pairs, "av5")))
         elif score_type == "av2m":
-            return list(map(lambda x: l5_to_l3m_map[x],
+            return list(map(lambda x: l5_to_l2m_map[x],
                             self.compute_scores(sc_pairs, "av5")))
         elif score_type == "av2l":
-            return list(map(lambda x: l5_to_l3l_map[x],
+            return list(map(lambda x: l5_to_l2l_map[x],
                             self.compute_scores(sc_pairs, "av5")))
+        elif score_type == "avt":
+            return list(map(lambda av, l5: av if l5 > 0 else 0.0,
+                            self.compute_scores(sc_pairs, "av"),
+                            self.compute_scores(sc_pairs, "l5")))
         elif score_type == "avr":
             # Evenly spaced score from 2 to -2, with added Gaussian noise and
             # truncated to [-2..2] again.
@@ -362,6 +377,40 @@ class EsaExperimentData:
         else:
             return -2
 
+    def compute_individual_scores(self):
+        """
+        Extract the list of individual scores for each PC and phase. This is
+        needed for function print_confusion_matrices below for the comparison
+        "phases-individual-scores". Ignore scores in columns 4 or 5 added after
+        phase 1, otherwise we can't compare the list from phase 3 with that of
+        the previous phases.
+
+        Note that it only makes sense to compare two such lists for the same PC
+        because a paper might have a different number of reviews (and hence
+        scores) in the two PCs.
+
+        >>> ee = EsaExperimentData()
+        >>> ee.all_scores = [[[[(1, 4), (-1, 3), (0, 3)],
+        ...                    [(0, 4), (-1, 2), (0, 2)],
+        ...                    [(3, 2), (-2, 5), (0, 3), (-2, 1)]], []],
+        ...                  [[[(1, 4), (-1, 3), (0, 3), (1, 4)],
+        ...                    [(0, 4), (-1, 2), (0, 2), (-2, 1), (4, 3)],
+        ...                    [(3, 2), (-2, 5), (0, 3), (-2, 1)]], []],
+        ...                   [[], []]]
+        >>> ee.compute_individual_scores() # doctest: +NORMALIZE_WHITESPACE
+        [[[1, -1, 0, 0, -1, 0, 3, -2, 0, -2], []],
+         [[1, -1, 0, 0, -1, 0, 3, -2, 0, -2], []], [[], []]]
+        """
+
+        individual_scores = [[[], []], [[], []], [[], []]]
+        for i in range(3):
+            for j in range(2):
+                for k in range(len(self.all_scores[i][j])):
+                    for l, pair in enumerate(self.all_scores[i][j][k]):
+                        if i == 0 or l < len(self.all_scores[0][j][k]):
+                            individual_scores[i][j].append(pair[0])
+        return individual_scores
+
     def print_scores(self, scores, scores_file_base_name, subdir_name):
         """
         Print the scores to files <base_name>_phase<i>_pc<j>.txt in the given
@@ -425,7 +474,7 @@ class EsaExperimentData:
         """
 
         print()
-        print("Normalized Kendall tau distance (a / b / p)"
+        print("Normalized Kendall tau distance (a / b / p) "
               "between PCs and phases:")
         print()
         tau_a_1 = kendall_tau_a(scores[0][0], scores[0][1])
@@ -480,7 +529,7 @@ class EsaExperimentData:
 
         if mode == "pcs":
             print()
-            print("Confusion matrices between the two PCs for phases 1, 2, 3:")
+            print("Confusion matrices between the two PCs after phases 1, 2, 3:")
             print()
             score_list_pairs = [(scores[0][0], scores[0][1]),
                                 (scores[1][0], scores[1][1]),
@@ -489,13 +538,26 @@ class EsaExperimentData:
                                                  score_labels)
         elif mode == "phases":
             print()
-            print("Confusion matrices between phases "
+            print("Confusion matrices between phases for per-paper scores "
                   "(PC1 1/2, PC1 2/3, PC2 1/2, PC2 2/3):")
             print()
             score_list_pairs = [(scores[0][0], scores[1][0]),
                                 (scores[1][0], scores[2][0]),
                                 (scores[0][1], scores[1][1]),
                                 (scores[1][1], scores[2][1])]
+            self.print_confusion_matrices_helper(score_list_pairs,
+                                                 score_labels)
+
+        elif mode == "phases-individual-scores":
+            print()
+            print("Confusion matrices between phases for individual scores "
+                  "(PC1 1/2, PC1 2/3, PC2 1/2, PC2 2/3):")
+            print()
+            indiv_scores = self.compute_individual_scores()
+            score_list_pairs = [(indiv_scores[0][0], indiv_scores[1][0]),
+                                (indiv_scores[1][0], indiv_scores[2][0]),
+                                (indiv_scores[0][1], indiv_scores[1][1]),
+                                (indiv_scores[1][1], indiv_scores[2][1])]
             self.print_confusion_matrices_helper(score_list_pairs,
                                                  score_labels)
 
@@ -797,6 +859,9 @@ if __name__ == "__main__":
                 ee.print_confusion_matrices(scores, score_type, "pcs")
             elif mode == "--confusion-phases":
                 ee.print_confusion_matrices(scores, score_type, "phases")
+            elif mode == "--confusion-phases-individual-scores":
+                ee.print_confusion_matrices(scores, score_type,
+                                            "phases-individual-scores")
             else:
                 print()
                 print("Invalid mode: \"%s\" ... skipping it" % mode)
