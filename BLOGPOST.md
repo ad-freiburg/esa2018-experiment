@@ -1,6 +1,6 @@
-The ESA 2018 Peer Reviewing Experiment
+# The ESA 2018 Peer Reviewing Experiment
 
-# PART 1 [Introduction + Setup of the Experiment]
+## PART 1 [Introduction + Setup of the Experiment]
 
 The European Symposium on Algorithms (ESA) is a venerable algorithms conference.
 For its 26th edition in 2018, we have decided to set up an experiment to evaluate the quality of the peer reviewing process via two parallel program committees (PCs).
@@ -24,7 +24,7 @@ PC members were explicitly and repeatedly asked to also update the *score* of th
 This allowed a quantitative analysis of the various phases of the reviewing process.
 For more details on the setup (and on the results), see http://ad-publications.informatik.uni-freiburg.de/ESA_experiment_Bast_2018.pdf
 
-# PART 2 [Main Results]
+## PART 2 [Main Results]
 
 **What is the overlap in the set of accepted papers?**
 This was the number reported by the NIPS experiment, where the overlap was 43%.
@@ -95,7 +95,7 @@ Fourth, the PCs were selected with particular care and comparable diversity.
 Neglecting any of these factors adds further randomness to the process,
 and so the results from this experiment are really what is left when you control for these other factors as much as possible.
 
-# PART 3 [Consequences]
+## PART 3 [Consequences]
 
 I see four main conclusions from this experiment:
 
