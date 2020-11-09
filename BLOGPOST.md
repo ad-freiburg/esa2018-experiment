@@ -33,7 +33,7 @@ In the ESA experiment, the overlap was 67% after Phase 1, 75% after Phase 2, and
 (for the NIPS experiment, the acceptance rate was 22.5%).
 
 To put these figures into perspective, let us look at a few simple random models.
-If the reviewing algorithm were deterministic, the overlap would be 100%.
+If the reviewing algorithm was deterministic, the overlap would be 100%.
 If a random subset of papers was accepted by each PC, the expected overlap would be 24%.
 In a more realistic model, 10% of the papers are accepted with probability 0.8, 20% of the papers are accepted with probability 0.6, 20% of the papers are accepted with probability 0.1, and 50% of the papers have no chance to be accepted.
 Then the expected overlap is around 60%.
@@ -43,25 +43,26 @@ The score range for each review was +2, +1, 0, -1, -2 (clear accept, weak accept
 For a paper that received only +2 scores, there was no incentive for discussion and these papers were accepted right away.
 There was little agreement between the two PCs concerning such "clear accepts".
 Out of 9 papers that were clear accepts in one PC, 4 were rejected by the other PC and only 2 were also clear accepts in the other PC.
-So telling our experiment, there is little evidence that something like a "clear accept" exists. If it exists, there are very few.
+So telling from our experiment, there is little evidence that papers that are "clear accepts" exist.
+If they exist, they are very few.
 
 **How effective were the various reviewing phases?**
 The overlap in the number of accepted papers showed a strange behavior:
 It increased after Phase 2 (per-paper discussions), but after Phase 3 (discussion of grey-zone papers and voting) it was worse than after Phase 1 (independent reviews without any interaction between the reviewers whatsoever).
 We investigated this in more detail by looking at the normalized Kendall tau distance between the **upper part** of the rankings of the two PCs after each phase.
-The normalized Kendall tau distance is the percentage of all pairs of submissions that were ordered oppositely in the two PCs,
-with a tie in one PC and a non-tie in the other PC counting as 0.5.
+The normalized Kendall tau distance is the percentage of all pairs of submissions that were ordered oppositely in the two PCs.
+If there is a tie in one PC and a non-tie in the other PC, this counts as 0.5.
 Before we report the result, let us understand how we ranked the papers and why we only looked at the upper part of that ranking.
 
-Papers were ranked by their confidence-weighted average score and this score was set to zero if no reviewer advocated the paper by giving a +2.
+Papers were ranked by their confidence-weighted average score and this average score was set to zero if no reviewer advocated the paper by giving a +2.
 This makes sense for the following two reasons:
 First, PC members were informed before that a paper needs at least one +2 to be accepted
 and that the goal of the discussion phase is that the score set for a paper properly reflects the collective opinion of the assigned reviewers on that paper.
 Second, there is no incentive for the reviewers to rank the papers that will be rejected;
-by setting their score to zero, they will effectively not be considered for the Kendall tau distance.
+by setting the scores of these papers to zero, their relative order is not considered for the Kendall tau distance.
 
 The normalized Kendall tau distance was 27% after the first phase, 18% after the second phase, and 21% after the third phase.
-In Phase 2, around 20% of all 313 reviews were modified relevant to the upper part of the ranking
+In Phase 2, around 20% of all 313 reviews were modified relevant to the upper part of the ranking.
 That is, a previous score of +1 or +2 was changed or a lower score was changed to +1 or +2.
 The bottom line is that the second phase (per-paper discussions) was reasonably effective,
 while the final phase (discussion of grey zone papers and voting) was not effective or even counter-productive.
@@ -69,13 +70,13 @@ TODO: say which % difference is statistically significant here.
 
 **How many clear rejects were there?**
 After Phase 3, there were 20 clear rejects in PC1 and 17 clear rejects in PC2
-and none of these papers were considered for acceptance in the other PC (in the sense that one reviewer advocated for them by giving a +2).
+and none of these papers were even considered for acceptance in the other PC (in the sense that one reviewer advocated for them by giving a +2).
 These number were also improved by the discussion phase, while the last phase changed nothing.
 Around 40% of the submissions were thus clear rejects in the sense that it is unlikely that any other PC (of similar quality) would have accepted any of them.
 
 There was only one paper with a score difference of 3 or more between the two PCs.
 It was a clear accept in one PC (all reviewers gave it a +2) and thus wasn't discussed any further after the first phase.
-The other PC was very critical of the meaningfulness of the results, so that the paper was eventually rejected with an overall score of -1.
+The other PC was very critical of the meaningfulness of the results and no reviewer advocated the paper, so that it was eventually rejected.
 
 **In summary:**
 The PCs did a very good job in separating the wheat from the chaff.
@@ -84,14 +85,15 @@ The discussion of the gray zone produced random results and could just as well h
 
 It is important to note that the above results should be considered **a lower bound**
 for the consistency of a reviewing process at a computer science conference, for the following reasons.
-First, ESA is a medium-sized conference (around 300 submissions to both tracks) with a relatively tightly-knit community.
-Second, for the sake of comparability the moderation of the two PCs was conducted with particularly great care:
+First, ESA is a medium-sized conference (around 300 submissions to both tracks) with a relatively tightly-knit community and one-tier PCs.
+Second, for the sake of comparability the moderation of the two PCs in this experiment was conducted with particularly great care:
 Most PCs nowadays do their work mostly or fully electronically without meeting personally.
 This is especially problematic for the discussion phase, since it can be hard to distinguish
 whether a PC member has nothing to add to his or her previous argument or whether they simply forgot or did not bother to reply because of other obligations.
 For this experiment, great care was taken that no discussion threads stalled and to remind PC members to give feedback.
 Also, the reviewing "algorithm" was laid out beforehand in great detail.
 Fourth, the PCs were selected with particular care and comparable diversity.
+
 Neglecting any of these factors adds further randomness to the process,
 and so the results from this experiment are really what is left when you control for these other factors as much as possible.
 
@@ -100,7 +102,8 @@ and so the results from this experiment are really what is left when you control
 I see four main conclusions from this experiment:
 
 **First, we need more experiments of this kind.**
-For computer science, we have the NIPS experiment and now the ESA experiment.
+How random (or not) is the typical peer review process in computer science?
+To help answer this question, we have the NIPS experiment and now the ESA experiment.
 They give a first picture, but given the central importance of peer review for our profession, we need more data points.
 As a side effect, this will also help to raise awareness further.
 One argument I often hear is that it is too much effort, in particular, with respect to the additional number of reviewers needed.
@@ -114,30 +117,37 @@ But when it comes to peer reviewing, there is nothing we can do?
 
 **Second, we need to truly accept the results of these experiments.**
 The experiments so far provide strong hints that there is a significant signal in reviews, but also a significant amount of noise and randomness.
-Yet, many PCs seem blissfully unaware that their reviewing process happens in a bubble.
+Yet, many PCs seem blissfully unaware that their reviewing process is happening inside of a bubble.
 Just image one PC heatedly debating the merits of a paper in the alleged gray zone,
-which in another PC (that judges the same set of papers) does not receive much attention because it was accepted or rejected early on.
-There are at least two strong and well-known biases at work here.
-One is that many people are unaware of their biases and thus **feel** that they are way more objective than they actually are.
-Another is if you make a strong effort as a group, than the result has to be meaningful.
-To this day, I often hear PC chairs say that there was a clear boundary between the papers that got accepted and those that had to be rejected.
-Such statements are simply not supported by any evidence.
-The other extreme are fatalists who feel that the whole process is random anyway, so why bother to provide a proper review.
+while another PC in a parallel universe (that judges the same set of papers) does not give that paper much attention because it was accepted or rejected early on.
+There are at least two strong and well-known cognitive biases at work here.
+One is that many people are unaware of their biases and thus feel that they are way more objective than they actually are.
+Another is the feeling that if you make a strong effort as a group, than the result has to be meaningful and not random.
+To this day, I often hear PC chairs say that there was a clear boundary between the papers that got accepted and those that were rejected.
+It is usually acknowledged that there is a gray zone, but not that that "gray tone" might encompass almost all of the papers which are not clear rejects.
+The other extreme is fatalism: the feeling that the whole process is random anyway, so why bother to provide a proper review.
 Both of these extremes are wrong, and this is still not widely understood or acted upon.
 
 **Third, how do we incorporate these results to improve the reviewing process?**
 Let us assume that the results from the NIPS and the ESA experiment are no anomalies, but will be replicated in future experiments.
 Then there are some pretty straightforward ways how we can incorporate them into the current reviewing process.
-For example, discussion of papers in the so-called "gray zone" (which is often very large) could be dropped, saving everybody precious time.
-For the per-paper discussions, care should be taken that the scores are updated according to the discussion,
+For example, discussion of papers that remain in the final stages of the review process (phase 3 in our experiment) could be dropped, saving everybody precious time.
+Instead, in the per-paper discussions, care should be taken that the scores are updated according to the discussion,
 so that the overall score reflects the final state of the discussion.
 These scores could then be converted to a probability distribution for at least a subset of the papers,
 namely those which have a chance to be accepted (at least one reviewer advocated their acceptance), but do not have unanimously strong support.
 Papers from this "extended gray zone" could then be accepted with a probability according to this distribution, that is, proportional to their score.
 This would not make the process any more random, but definitely less biased.
 
-Finally, if reviewing indeed manages to separate the wheat from the chaff, a simple and effective measurement to decrease randomness would be to accept more papers.
+Also, if reviewing indeed manages to separate the wheat from the chaff, a simple and effective measurement to decrease randomness would be to accept more papers.
 Low acceptance rates, especially for conferences, come from a time where proceedings were printed and every paper was presented in a longer talk.
-Much as changed in the meantime.
+Much has changed in the meantime.
 Digital publication no longer imposes a limit on the number of papers and many conferences have already moved away from the "one full talk per paper" principle.
-TODO: write a bit more here and end on a high note.
+
+**Fourth, all of this knowledge has to be preserved from one PC to the next**
+Chairing a PC is a lot of work and it is usually done as a side job, on top of many other obligations.
+TODO: finish this section
+
+
+
+
