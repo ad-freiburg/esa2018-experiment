@@ -5,7 +5,7 @@
 In 2014, the organizers of the Conference on Neural Information Processing Systems (NeurIPS, then still called NIPS) made a bold experiment.
 They split their program committee in two and let each half **independently** review a part of the submissions.
 The interesting part was that they made the parts **overlap**, so that 10% of all submissions (166 papers) were reviewed by two independent PCs.
-The result of this "NIPS experiment" was essentially a single figure: the overlap in the number of accepted papers.
+The result of this experiment was essentially a single figure: the overlap in the number of accepted papers.
 The overlap was only 43%, that is, more than half of the papers accepted by one PC were rejected by the other.
 This led to a passionate flare-up of the old debate of how effective or random peer-reviewing really is.
 
@@ -13,10 +13,11 @@ The experiment left open a number of interesting questions.
 How many papers that looked like "clear accepts" in one PC were rejected by the other PC?
 How many papers that looked like "clear rejects" in one PC were accepted by the other PC?
 And is there even such a thing as a "clear accept" and a "clear reject" and if yes, how many of the submissions are of this kind?
-And how large is the "gray zone" of papers, which are neither fish nor foul and how well do the PCs agree on this gray zone?
+How large is the "gray zone" of papers, which are neither fish nor foul and how well do the PCs agree on these?
 And how do theses similarities evolve over the reviewing process, which usually involves various stages of discussions between the PC members?
 Do the per-paper discussions really help? Do the often extensive discussions of papers in the gray zone help?
-And finally, what tips the scale for reviewer decisions: the quality of the write-up, or the strength of the results, or the technical difficulty?
+And what tips the scale for reviewer decisions: the quality of the write-up, or the strength of the results, or the technical difficulty?
+And finally: what does this all mean for the future of peer review?
 
 To answer these questions, in 2018 we set up an experiment similar to the NIPS experiment, but with richer data and a deeper analysis.
 The target was the 26th edition of the "European Symposium on Algorithms" (ESA), a venerable algorithms conference.
