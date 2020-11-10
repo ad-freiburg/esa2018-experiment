@@ -1,30 +1,44 @@
-# The ESA 2018 Peer Reviewing Experiment
+# Quo Vadis Peer Review: The ESA 2018 Experiment
 
-## PART 1 [Introduction + Setup of the Experiment]
+## PART 1: From the "NIPS experiment" to the "ESA experiment"
 
-The European Symposium on Algorithms (ESA) is a venerable algorithms conference.
-For its 26th edition in 2018, we have decided to set up an experiment to evaluate the quality of the peer reviewing process via two parallel program committees (PCs).
-Each PC reviewed the complete set of submissions completely independently from each other.
-The experiment is similar in spirit to the well-known NIPS 2014 experiment, but with more detailed data and a deeper analysis.
+In 2014, the organizers of the Conference on Neural Information Processing Systems (NeurIPS, then still called NIPS) made a bold experiment.
+They split their program committee in two and let each half **independently** review a part of the submissions.
+The interesting part was that they made the parts **overlap**, so that 10% of all submissions (166 papers) were reviewed by two independent PCs.
+The result of this "NIPS experiment" was essentially a single figure: the overlap in the number of accepted papers.
+The overlap was only 43%, that is, more than half of the papers accepted by one PC were rejected by the other.
+This led to a passionate flare-up of the old debate of how effective or random peer-reviewing really is.
 
-The experiment was conducted for Track B of the conference, dedicated to algorithms engineering, applications and empirical evaluation.
-There were 51 valid submissions and two PCs with 12 members each.
-The composition of the two PCs were the same with respect to gender, seniority, continent and research area.
-For each PC, each submission was assigned to at least three PC members, and each PC member had 12-13 papers to review.
+The experiment left open a number of interesting questions.
+How many papers that looked like "clear accepts" in one PC were rejected by the other PC?
+How many papers that looked like "clear rejects" in one PC were accepted by the other PC?
+And is there even such a thing as a "clear accept" and a "clear reject" and if yes, how many of the submissions are of this kind?
+And how large is the "gray zone" of papers, which are neither fish nor foul and how well do the PCs agree on this gray zone?
+And how do theses similarities evolve over the reviewing process, which usually involves various stages of discussions between the PC members?
+Do the per-paper discussions really help? Do the often extensive discussions of papers in the gray zone help?
+And finally, what tips the scale for reviewer decisions: the quality of the write-up, or the strength of the results, or the technical difficulty?
+
+To answer these questions, in 2018 we set up an experiment similar to the NIPS experiment, but with richer data and a deeper analysis.
+The target was the 26th edition of the "European Symposium on Algorithms" (ESA), a venerable algorithms conference.
+ESA receives around 300 submissions every year and has two tracks: the more theoretical Track A and the more practical Track B.
+For the experiment, we picked Track B, which received 51 submissions that year.
+Two independent PCs of 12 members each were set up, with the same distribution with respect to gender, seniority, continent and research area.
 Overall 313 reviews were written, where about one third came from subreviewers picked by the PC members.
-Each PC followed the same standard reviewing "algorithm", which was agreed on and laid out in advance as clearly as possible.
-Each PC had the goal to select 10-12 papers for acceptance, which corresponds to an acceptance rate of 20 - 25%.
-From the authors' perspective, a paper was accepted in the end if at least one of the two PCs selected it for acceptance.
+These numbers are smaller than for the NIPS experiment, but still large enough to yield meaningful results, yet small enough to allow for the time-intensive deeper analysis.
 
-As usual, reviewing proceeded in three phases:
+Each PC had the goal to select 10-12 papers for acceptance, which corresponds to an acceptance rate of 20 - 25% (in the NIPS experiment, the acceptance rate was 22.5%).
+From the authors' perspective, a paper was accepted in the end if at least one of the two PCs selected it for acceptance.
+Both PCs followed the same standard reviewing "algorithm", which was agreed on and laid out in advance as clearly as possible.
 In Phase 1, PC members entered their reviews without seeing any of the other reviews.
 In Phase 2, PC members discussed with each other, mostly on a per-paper basis, and papers were proposed for acceptance / rejection in rounds.
-In Phase 3, the remaining ("grey zone") papers were compared with each other and all papers left without a clear decision in the end were decided by voting.
-PC members were explicitly and repeatedly asked to also update the *score* of their review whenever they changed something in their review.
+In Phase 3, the remaining ("gray zone") papers were compared with each other and all papers left without a clear decision in the end were decided by voting.
+PC members were explicitly and repeatedly asked to also update the *score*  of their review whenever they changed something in their review.
 This allowed a quantitative analysis of the various phases of the reviewing process.
 For more details on the setup (and on the results), see http://ad-publications.informatik.uni-freiburg.de/ESA_experiment_Bast_2018.pdf
 
-## PART 2 [Main Results]
+## PART 2: The main results of the ESA experiment
+
+Let us first get an overview of the results and then, in Part 3, discuss their implications.
 
 **What is the overlap in the set of accepted papers?**
 This was the number reported by the NIPS experiment, where the overlap was 43%.
@@ -97,7 +111,7 @@ Fourth, the PCs were selected with particular care and comparable diversity.
 Neglecting any of these factors adds further randomness to the process,
 and so the results from this experiment are really what is left when you control for these other factors as much as possible.
 
-## PART 3 [Consequences]
+## PART 3: What now?
 
 I see four main conclusions from this experiment:
 
