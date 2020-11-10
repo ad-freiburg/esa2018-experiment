@@ -144,10 +144,21 @@ Low acceptance rates, especially for conferences, come from a time where proceed
 Much has changed in the meantime.
 Digital publication no longer imposes a limit on the number of papers and many conferences have already moved away from the "one full talk per paper" principle.
 
-**Fourth, all of this knowledge has to be preserved from one PC to the next**
-Chairing a PC is a lot of work and it is usually done as a side job, on top of many other obligations.
-TODO: finish this section
+**Fourth, all of this knowledge has to be preserved from one PC to the next.**
+Already now, we have a treasure of knowledge on the peer reviewing process.
+But only a fraction of it is considered or implemented at any particular conference.
+The main reason is the typical way, administrative jobs are implemented in the academic world:
+jobs rotate (often rather quickly), there is little incentive to excel, there is almost no quality control,
+and for most, participating in the peer-reviewing process is another obligation on top of an already more than full-time job.
+You do get status points for some administrative jobs, but you do not really get points for doing them  particularly well or for investing an outstanding amount of time or energy.
+Why is that so?
+Most scientists are inherently self-motivated and incredibly persistent and perseverant when it comes to their science.
+Indeed, that is why most of us became scientists in the first place.
+Administrative tasks are not what we signed up for and also not what we were selected or trained for.
+We understand intellectually how important they are, but we do not really treat them that way.
 
+**The bottom line:**
+Peer review is a very hard and complex problem, but not unsolvable. There is still a lot of room for improvement with respect to the current status quo. The three main ingredients are: more experiments and more data (treating peer review like a complex research problem), better knowledge transfer from one PC to the next (implementing what we already know is good), and an effective incentive system that promotes and rewards excellence in this essential part of science.
 
 
 
