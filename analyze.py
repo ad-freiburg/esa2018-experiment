@@ -19,8 +19,8 @@ score_type_names = {
     "l2u": "score from {+2, 0} via l5, where -2, -1, 0, +1 -> 0",
     "l2m": "score from {+1, -1} via l5, where +2, +1 -> +1",
     "l2l": "score from {0, -2} via l5, where -1, 0, +1, +2 -> 0",
-    "avt": "av score if l5 in {+2, +1} and 0 otherwise",
     "av5": "av score, rounded to nearest score from {-2, -1, 0, +1, +2}",
+    "avt": "av score if l5 in {+2, +1} and 0 otherwise [used for blog post]",
     "av3u": "av5 score reduced to {+2, +1, -1} like l5 is reduced to l3u",
     "av3m": "av5 score reduced to {+1, 0, -1} like l5 is reduced to l3m",
     "av3l": "av5 score reduced to {+1, -1, -2} like l5 is reduced to l3l",
@@ -73,19 +73,20 @@ l2u:   """ + score_type_names["l2u"] + """
 l2m:   """ + score_type_names["l2m"] + """
 l2l:   """ + score_type_names["l2l"] + """
 av5:   """ + score_type_names["av5"] + """
-av3u:   """ + score_type_names["av3u"] + """
-av3m:   """ + score_type_names["av3m"] + """
-av3l:   """ + score_type_names["av3l"] + """
-av2u:   """ + score_type_names["av2u"] + """
-av2m:   """ + score_type_names["av2m"] + """
-av2l:   """ + score_type_names["av2l"] + """
+avt:   """ + score_type_names["avt"] + """
+av3u:  """ + score_type_names["av3u"] + """
+av3m:  """ + score_type_names["av3m"] + """
+av3l:  """ + score_type_names["av3l"] + """
+av2u:  """ + score_type_names["av2u"] + """
+av2m:  """ + score_type_names["av2m"] + """
+av2l:  """ + score_type_names["av2l"] + """
 avr:   """ + score_type_names["avr"] + """
 l5r:   """ + score_type_names["l5r"] + """
 l3r:   """ + score_type_names["l3r"] + """
 l2r:   """ + score_type_names["l2r"] + """
 rnd:   """ + score_type_names["rnd"] + """
 
-If multiple score types are specified, the analysis is dann for each score
+If multiple score types are specified, the analysis is done for each score
 type, one after the other.
 """
 
@@ -640,7 +641,7 @@ def kendall_tau_a(scores1, scores2):
     pairs, which are neither concordant or discordant (that is, one or both
     relations are ==). Then the correlation becomes 1 - 2 * (nd + nt/2) / N and
     the distance is (nd + nt/2) / N. That is, it's like counting each tied pair
-    like half a concordant pair. This is very similar to variant p of the
+    like half a discordant pair. This is very similar to variant p of the
     Kendall tau below with p = 0.5, except that there pairs which are tied on
     both sides are counted as 0, and the denumerator decreases a bit for every
     tied pair.
