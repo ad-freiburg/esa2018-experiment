@@ -1,6 +1,6 @@
 # Quo Vadis Peer Review: The ESA 2018 Experiment
 
-## From the "NIPS Experiment" to the "ESA experiment"
+## PART 1: From the "NIPS Experiment" to the "ESA Experiment"
 
 In 2014, the organizers of the Conference on Neural Information Processing Systems (NeurIPS, then still called NIPS) made a bold experiment.
 They split their program committee in two and let each half **independently** review a part of the submissions.
