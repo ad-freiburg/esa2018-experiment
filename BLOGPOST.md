@@ -97,8 +97,7 @@ The results from this experiment are therefore really what is left when you cont
 I see four main conclusions from this experiment:
 
 **First, we need more experiments of this kind.**
-We have the NIPS experiment and now the ESA experiment.
-FOOTNOTE: There are other experiments, like the single-blind vs. double-blind comparison at WSDM'17, investigating particular aspects of the reviewing process.
+We have the NIPS experiment and now the ESA experiment.<sup>1</sup>
 They give a first impression, but important questions are still not clear enough (for example, how effective or even harmful the discussions are).
 One argument I often hear is that it is too much effort, in particular, with respect to the additional number of reviewers needed.
 I don't buy this argument.
@@ -150,3 +149,7 @@ We understand intellectually how important they are, but we do not really treat 
 **The bottom line:
 Peer review is a very hard and complex problem, but there is still a lot of room for improvement with respect to the current status quo.
 Three key ingredients are: more experiments and more data (treating peer review like a research problem), better knowledge transfer from one PC to the next (implementing what we already know is good), an effective incentive system (promote and reward excellence in this essential part of science).** 
+
+
+<sup>1</sup> There are other experiments, like the single-blind vs. double-blind comparison at WSDM'17, investigating particular aspects of the reviewing process.
+
