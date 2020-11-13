@@ -27,9 +27,9 @@ These numbers are smaller than for the NIPS experiment, but still large enough t
 Each PC had the goal to select 10-12 papers for acceptance, which corresponds to an acceptance rate of 20 - 25% (in the NIPS experiment, the acceptance rate was 22.5%).
 Both PCs followed the same standard reviewing "algorithm", which was agreed on and laid out in advance as clearly as possible:
 
-Phase 1: PC members entered their reviews without seeing any of the other reviews.
-Phase 2: PC members discussed with each other, mostly on a per-paper basis, and papers were proposed for acceptance / rejection in rounds.
-Phase 3: The remaining ("gray zone") papers were compared with each other and all papers left without a clear decision in the end were decided by voting.
+- Phase 1: PC members entered their reviews without seeing any of the other reviews.
+- Phase 2: PC members discussed with each other, mostly on a per-paper basis, and papers were proposed for acceptance / rejection in rounds.
+- Phase 3: The remaining ("gray zone") papers were compared with each other and all papers left without a clear decision in the end were decided by voting.
 
 PC members were explicitly and repeatedly asked to also update the *score*  of their review whenever they changed something in their review.
 This allowed a quantitative analysis of the various phases of the reviewing process.
