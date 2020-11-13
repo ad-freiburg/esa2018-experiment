@@ -59,7 +59,7 @@ If papers that are "clear accepts" exist at all, they are very few.
 **How many clear rejects were there?**
 After Phase 2, there were 20 clear rejects in PC1 and 17 clear rejects in PC2.
 None of these papers were even considered for acceptance in the other PC.
-Those number are larger than after Phase 1 (before the discussions), but did not change anymore after Phase 3 (gray-zone discussions).
+Those numbers were smaller after Phase 1 (before the discussions), but did not change anymore after Phase 3 (gray-zone discussions).
 At least one third of the submissions were thus clear rejects in the sense that it is unlikely that any other PC would have accepted any of them.
 There was only one paper with a score difference of 3 or more between the two PCs.
 It was a clear accept in one PC (all reviewers gave it a +2, praising the strong results), while the other PC was very critical of its meaningfulness.
