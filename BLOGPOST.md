@@ -33,7 +33,7 @@ Both PCs followed the same standard reviewing "algorithm", which was agreed on a
 
 PC members were explicitly and repeatedly asked to also update the *score*  of their review whenever they changed something in their review.
 This allowed a quantitative analysis of the various phases of the reviewing process.
-For more details on the setup and on the results, see http://ad-publications.informatik.uni-freiburg.de/ESA_experiment_Bast_2018.pdf
+For more details on the setup and on the results and the (anonymized) data, see the website of the experiment.<sup>1</sup>
 
 ## PART 2: The main results of the ESA experiment
 
@@ -67,7 +67,7 @@ It was a clear accept in one PC (all reviewers gave it a +2, praising the strong
 **How effective were the various reviewing phases?**
 The overlap in the number of accepted papers fluctuated between 58% and 75% over the reviewing process, but these changes were not statistically significant.
 We investigated this in more detail by comparing the *rankings* of the two PCs of those papers that were at least considered for acceptance (at least one reviewer speaks up) from phase to phase.
-Ranking similarity was computed using the normalized Kendall tau distance (1 if the rankings are identical, 0 if one ranking is the reverse of the other); see [1] for the details.
+Ranking similarity was computed using the normalized Kendall tau distance (1 if the rankings are identical, 0 if one ranking is the reverse of the other); see the website for details.<sup>1</sup)
 The similarity was 36% after Phase 1, 27% after Phase 2, and 30% after Phase 3, where the drop after Phase 1 is statistically significant.
 This surprising result questions the efficiency of the discussion phases.
 Is the *independence* of the initial reviews maybe a valuable feature, which is compromised by the discussions?
@@ -96,7 +96,7 @@ The results from this experiment are therefore really what is left when you cont
 I see four main conclusions from this experiment:
 
 **First, we need more experiments of this kind.**
-We have the NIPS experiment and now the ESA experiment.<sup>1</sup>
+We have the NIPS experiment and now the ESA experiment.<sup>2</sup>
 They give a first impression, but important questions are still not clear enough (for example, how effective or even harmful the discussions are).
 One argument I often hear is that it is too much effort, in particular, with respect to the additional number of reviewers needed.
 I don't buy this argument.
@@ -150,5 +150,7 @@ Peer review is a very hard and complex problem, but there is still a lot of room
 Three key ingredients are: more experiments and more data (treating peer review like a research problem), better knowledge transfer from one PC to the next (implementing what we already know is good), an effective incentive system (promote and reward excellence in this essential part of science).** 
 
 
-<sup>1</sup> There are other experiments, like the single-blind vs. double-blind comparison at WSDM'17, investigating particular aspects of the reviewing process.
+<sup>1</sup> https://github.com/ad-freiburg/esa2018-experiment
+
+<sup>2</sup> There are other experiments, like the single-blind vs. double-blind comparison at WSDM'17, investigating particular aspects of the reviewing process.
 
