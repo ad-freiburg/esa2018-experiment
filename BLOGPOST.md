@@ -11,8 +11,8 @@ This led to a passionate flare-up of the old debate of how effective or random p
 
 The experiment left open a number of interesting questions:
 
-1. How many papers that looked like "clear accepts" in one PC were rejected by the other PC?
-2. How many papers that looked like "clear rejects" in one PC were accepted by the other PC?
+1. How many papers that looked like "clear" accepts in one PC were rejected by the other PC, if any?
+2. How many papers that looked like "clear" rejects in one PC were accepted by the other PC, if any?
 3. How large is the "gray zone" of papers, which are neither fish nor foul and how well do the PCs agree on these?
 4. How much does the discussion of the papers in the PC help decrease the randomness of the decisions, and does it even do that?
 5. And finally, what does this all mean for the future of peer review?
