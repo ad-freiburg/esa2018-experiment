@@ -78,18 +78,19 @@ There also appeared to be at least a partial order in the wheat.
 But it is completely unclear whether the extensive discussions helped or even harmed.**
 
 It is important to note that the above results should be considered **a lower bound**
-for the consistency of a reviewing process at a computer science conference, for the following reasons.
-First, ESA is a medium-sized conference with a relatively tightly-knit community and one-tier PCs.
-Second, for the sake of comparability the moderation of the two PCs in this experiment was conducted with particularly great care:
-Most PCs nowadays do their work mostly or fully electronically without meeting personally.
+for the consistency of a reviewing process at a computer science conference, for the following reasons:
+
+1. ESA is a medium-sized conference with a relatively tightly-knit community and one-tier PCs.
+2. Most PCs nowadays do their work fully electronically without meeting personally.
 This is especially problematic for the discussion phase, where discussions frequently stall
 and it is unclear whether that is because the PC members have nothing to add to their previous argument
 or whether they simply forgot or did not bother to reply because of other obligations.
-For this experiment, great care was taken that no discussion threads stalled and to remind PC members to give feedback.
-Third, the reviewing "algorithm" was laid out beforehand in great detail.
-Fourth, the PCs were selected with particular care and diversity (with respect to seniority, gender, topic, continent) as similar as possible.
+For this experiment, great care was taken to remind PC members to give feedback so that no discussion threads stalled.
+3. The reviewing "algorithm" was laid out beforehand in great detail.
+4. The PCs were selected so that their diversity (with respect to seniority, gender, topic, continent) was as similar as possible.
+
 Neglecting any of these factors adds further randomness to the process.
-The results from this experiment are therefore really what is left when you control for these other factors as much as possible.
+The results from this experiment are therefore really what is left when you control forthe above mentioned factors as much as possible.
 
 ## PART 3: What now?
 
