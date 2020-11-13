@@ -5,8 +5,8 @@
 In 2014, the organizers of the Conference on Neural Information Processing Systems (NeurIPS, then still called NIPS) made a bold experiment.
 They split their program committee (PC) in two and let each half **independently** review a part of the submissions.
 The interesting part was that they made the parts **overlap**, so that 10% of all submissions (166 papers) were reviewed by two independent PCs.
-The result of this experiment was essentially a single figure: the overlap in the number of accepted papers.
-The overlap was only 43%, that is, more than half of the papers accepted by one PC were rejected by the other.
+The result of this experiment was that the set of accepted papers overlapped by only 43%.
+That is, more than half of the papers accepted by one PC were rejected by the other.
 This led to a passionate flare-up of the old debate of how effective or random peer-reviewing really is.
 
 The experiment left open a number of interesting questions:
