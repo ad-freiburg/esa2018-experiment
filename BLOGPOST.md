@@ -3,7 +3,7 @@
 ## PART 1: From the "NIPS Experiment" to the "ESA Experiment"
 
 In 2014, the organizers of the Conference on Neural Information Processing Systems (NeurIPS, then still called NIPS) made a bold experiment.
-They split their program committee in two and let each half **independently** review a part of the submissions.
+They split their program committee (PC) in two and let each half **independently** review a part of the submissions.
 The interesting part was that they made the parts **overlap**, so that 10% of all submissions (166 papers) were reviewed by two independent PCs.
 The result of this experiment was essentially a single figure: the overlap in the number of accepted papers.
 The overlap was only 43%, that is, more than half of the papers accepted by one PC were rejected by the other.
@@ -17,12 +17,11 @@ The experiment left open a number of interesting questions:
 4. How much does the discussion of the papers in the PC help decrease the randomness of the decisions, and does it even do that?
 5. And finally, what does this all mean for the future of peer review?
 
-To answer these questions, in 2018 we set up an experiment similar to the NIPS experiment, but with richer data and a deeper analysis.
+To answer these questions, in 2018 I conducted an experiment similar to the NIPS experiment, but with richer data and a deeper analysis.
 The target was the 26th edition of the "European Symposium on Algorithms" (ESA), a venerable algorithms conference.
 ESA receives around 300 submissions every year and has two tracks: the more theoretical Track A and the more practical Track B.
-For the experiment, we picked Track B, which received 51 submissions that year.
-Two independent PCs of 12 members each were set up, with the same distribution with respect to gender, seniority, continent and research area.
-Overall 313 reviews were written.
+For the experiment, I picked Track B, which received 51 submissions that year.
+Two independent PCs of 12 members each were set up, who produced a total of 313 reviews, each of which was later analyzed in detail. 
 These numbers are smaller than for the NIPS experiment, but still large enough to yield meaningful results, yet small enough to allow for the time-intensive deeper analysis.
 
 Each PC had the goal to select 10-12 papers for acceptance, which corresponds to an acceptance rate of 20 - 25% (in the NIPS experiment, the acceptance rate was 22.5%).
