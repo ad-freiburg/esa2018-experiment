@@ -79,17 +79,16 @@ But it is completely unclear whether the extensive discussions helped or even ha
 It is important to note that the above results should be considered **a lower bound**
 for the consistency of a reviewing process at a computer science conference, for the following reasons:
 
-1. ESA is a medium-sized conference with a relatively tightly-knit community and one-tier PCs.
+1. ESA is a medium-sized conference with a relatively tightly-knit community and a one-tier PCs.
 2. Most PCs nowadays do their work fully electronically without meeting personally.
-This is especially problematic for the discussion phase, where discussions frequently stall
-and it is unclear whether that is because the PC members have nothing to add to their previous argument
-or whether they simply forgot or did not bother to reply because of other obligations.
+This is especially problematic for the discussion phase, where discussions often span several days or even weeks
+and frequently stall because a PC member forgets to reply because of other obligations.
 For this experiment, great care was taken to remind PC members to give feedback so that no discussion threads stalled.
-3. The reviewing "algorithm" was laid out beforehand in great detail.
+3. The reviewing "algorithm" was laid out beforehand in detail.
 4. The PCs were selected so that their diversity (with respect to seniority, gender, topic, continent) was as similar as possible.
 
-Neglecting any of these factors adds further randomness to the process.
-The results from this experiment are therefore really what is left when you control forthe above mentioned factors as much as possible.
+Larger conference, two-tier PCs, unresponsive PC members, underspecified guidelines, and variance in diversity
+most likely all further increase the randomness in the reviewing process.
 
 ## PART 3: What now?
 
