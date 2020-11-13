@@ -34,11 +34,11 @@ Phase 3: The remaining ("gray zone") papers were compared with each other and al
 
 PC members were explicitly and repeatedly asked to also update the *score*  of their review whenever they changed something in their review.
 This allowed a quantitative analysis of the various phases of the reviewing process.
-For more details on the setup (and on the results), see http://ad-publications.informatik.uni-freiburg.de/ESA_experiment_Bast_2018.pdf
+For more details on the setup and on the results, see http://ad-publications.informatik.uni-freiburg.de/ESA_experiment_Bast_2018.pdf
 
 ## PART 2: The main results of the ESA experiment
 
-Let us first get an overview of the results and then, in Part 3, discuss their implications.
+Let us first get a quick overview of the results and then, in Part 3, discuss their implications.
 
 **What is the overlap in the set of accepted papers?**
 In the NIPS experiment, the overlap was 43%.
@@ -71,7 +71,7 @@ We investigated this in more detail by comparing the *rankings* of the two PCs o
 Ranking similarity was computed using the normalized Kendall tau distance (1 if the rankings are identical, 0 if one ranking is the reverse of the other); see [1] for the details.
 The similarity was 36% after Phase 1, 27% after Phase 2, and 30% after Phase 3, where the drop after Phase 1 is statistically significant.
 This surprising result questions the efficiency of the discussion phases.
-Is the *independence* of the initial reviews a valuable feature?
+Is the *independence* of the initial reviews maybe a valuable feature, which is compromised by the discussions?
 
 **In summary, the PCs did a very good job in separating the wheat from the chaff.
 There also appeared to be at least a partial order in the wheat.
