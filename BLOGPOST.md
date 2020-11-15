@@ -66,15 +66,16 @@ It was a clear accept in one PC (all reviewers gave it a +2, praising the strong
 
 **How effective were the various reviewing phases?**
 The overlap in the number of accepted papers fluctuated between 58% and 75% over the reviewing process, but these changes were not statistically significant.
+It also depends heavily on the acceptance rate; see the website for details.<sup>1</sup>
 We investigated this in more detail by comparing the *rankings* of the two PCs of those papers that were at least considered for acceptance (at least one reviewer speaks up) from phase to phase.
-Ranking similarity was computed using the normalized Kendall tau distance (1 if the rankings are identical, 0 if one ranking is the reverse of the other); see the website for details.<sup>1</sup>
-The similarity was 36% after Phase 1, 27% after Phase 2, and 30% after Phase 3, where the drop after Phase 1 is statistically significant.
-This surprising result questions the efficiency of the discussion phases.
-Is the *independence* of the initial reviews maybe a valuable feature, which is compromised by the discussions?
+Ranking similarity was computed the Kendall tau correleation (1 for identical rankings, 0 for random rankings, -1 if one is the reverse of the other); again see the website for details.<sup>1</sup>
+The similarity was 46% after Phase 1, 66% after Phase 2, and 62% after Phase 3, where the increase after Phase 1 is statistically significant.
+This suggests that the per-paper dicussions play an important role for objectifying paper scores,
+while the discussions of papers in the "gray zone" add little or nothing in that respect.
 
 **In summary, the PCs did a very good job in separating the wheat from the chaff.
 There also appeared to be at least a partial order in the wheat.
-But it is completely unclear whether the extensive discussions helped or even harmed.**
+The per-paper discussions seem to help, the gray-zone discussions don't.**
 
 It is important to note that the above results should be considered **a lower bound**
 for the consistency of a reviewing process at a computer science conference, for the following reasons:
