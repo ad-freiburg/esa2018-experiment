@@ -148,8 +148,9 @@ We understand intellectually how important they are, but we do not really treat 
 **My bottom line:
 The reputation of the peer-review process is tarnished.
 Let us work on this with the same love and attention we give to our favorite research problems.
-Let us do more experiments to gain insights that help us make the process more fair and more objective.
-And let us create powerful incentives, so that whatever we already know is good is actually implemented.**
+Let us do more experiments to gain insights that help us make the process more fair and regain some trust.
+And let us create powerful incentives, so that whatever we already know is good is actually implemented
+and carried over from one PC to the next.**
 
 <sup>1</sup> https://github.com/ad-freiburg/esa2018-experiment
 
