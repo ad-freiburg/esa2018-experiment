@@ -145,10 +145,11 @@ Indeed, that is why most of us became scientists in the first place.
 Administrative tasks are not what we signed up for, not what we were trained for and not what we were selected for.
 We understand intellectually how important they are, but we do not really treat them that way.
 
-**The bottom line:
-Peer review is a very hard and complex problem, but there is still a lot of room for improvement with respect to the current status quo.
-Three key ingredients are: more experiments and more data (treating peer review like a research problem), better knowledge transfer from one PC to the next (implementing what we already know is good), an effective incentive system (promote and reward excellence in this essential part of science).** 
-
+**My bottom line:
+The reputation of the peer-review process is tarnished.
+Let us work on this with the same love and attention we give to our favorite research problems.
+Let us do more experiments to gain insights that help us make the process more fair and more objective.
+And let us create powerful incentives, so that whatever we already know is good is actually implemented.**
 
 <sup>1</sup> https://github.com/ad-freiburg/esa2018-experiment
 
