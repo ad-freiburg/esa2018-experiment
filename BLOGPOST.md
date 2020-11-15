@@ -106,7 +106,7 @@ If we pick one of these conferences from time to time to make an experiment, the
 Another argument I often hear is that it is an unsolvable problem.
 This always leaves me speechless.
 In their respective specialty, researchers love hard problems and sometimes work their whole life trying to make some progress.
-But when it comes to peer reviewing, the current status quo is as good as it gets?
+But when it comes to the peer-review process, the current status quo is as good as it gets?
 
 **Second, we need to truly accept the results of these experiments.**
 The experiments so far provide strong hints that there is a significant signal in reviews, but also a significant amount of noise and randomness.
@@ -121,16 +121,15 @@ Both of these extremes are wrong, and this is still not widely understood or act
 
 **Third, how do we incorporate these results to improve the reviewing process?**
 Let us assume that the results from the NIPS and the ESA experiment are no anomalies.
-Then the discussion phase could be shortened, saving everybody time and decreasing turn-around times.
-This, however, must be countered by measures to ensure that the initial reviews are of reasonable quality (I conjecture that the embarrassment of writing a sub-standard review is an important factor in reviewing).
-When ranking submissions by average weighted scores, it is crucial to communicate the semantics of these scores very clearly and in advance.
-Average scores could then be converted to a probability distribution for at least for a subset of the papers,
+Then there are some pretty straightforward ways how we can incorporate them into the current reviewing process.
+For example, discussion of papers in the alleged "gray zone" (phase 3 in our experiment) could be dropped, saving everybody precious time.
+Instead, average scores could be converted to a probability distribution for at least a subset of the papers,
 namely those which have a chance to be accepted (at least one reviewer speaks up), but which do not have unanimously strong support.
 Papers from this "extended gray zone" could then be accepted with a probability proportional to their score.
 This would not make the process any more random, but definitely less biased.
+The prerequisite is that the semantics of the available scores are communicated to the PC members as clearly as possible in advance.
 To reduce not only bias, but also randomness, a simple and effective measure would be to accept more papers.
 Low acceptance rates for conferences come from a time where proceedings were printed and every paper was presented in a longer talk.
-Much has changed in the meantime.
 Digital publication no longer imposes a limit on the number of papers and many conferences have already moved away from the "one full talk per paper" principle.
 
 **Fourth, all of this knowledge has to be preserved from one PC to the next.**
