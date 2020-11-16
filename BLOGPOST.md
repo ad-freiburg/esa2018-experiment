@@ -125,7 +125,7 @@ It is usually acknowledged that there is a gray zone, but not that that "gray zo
 PCs can spend a lot of time debating papers, blissfully unaware that another PC in a parallel universe did not give these papers much attention because they were accepted or more likely rejected early on in the process.
 From my own extensive PC experience, I conjecture that there are at least two biases at work here.
 One is that humans tend to be unaware of their biases and feel that they are much more objective than they actually are.
-Another is the feeling that if you make a strong effort as a group, then the result has to be meaningful.
+Another is the feeling that if you make a strong effort as a group, then the result is meaningful and fair.
 The other extreme is fatalism: the feeling that the whole process is random anyway, so why bother to provide a proper review.
 Both of these extremes are wrong, and this is still not widely understood or acted upon.
 
