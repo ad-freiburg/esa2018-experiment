@@ -43,7 +43,7 @@ Let us first get a quick overview of the results and then, in Part 3, discuss th
 **What is the overlap in the set of accepted papers?**
 In the NIPS experiment, the overlap was 43%.
 In the ESA experiment, the overlap was 58%.
-For both experiments, the acceptance rate per PC was 23%.
+For both experiments, the acceptance rate per PC was around 23%.
 To put these figures into perspective:
 If the reviewing algorithm was deterministic, the overlap would be 100%.
 If a random subset of papers was accepted by each PC, the expected overlap would be 24%.
