@@ -46,7 +46,7 @@ For both experiments, the acceptance rate per PC was 23%.
 To put these figures into perspective:
 If the reviewing algorithm was deterministic, the overlap would be 100%.
 If a random subset of papers was accepted by each PC, the expected overlap would be 24%.
-In a more realistic model, where 10% / 20% / 20% / 50% of the papers are accepted with probabilities 0.8 / 0.6 / 0.1 / 0.0, the expected overlap is around 60%.
+If 10% / 20% / 20% / 50% of the papers were accepted with probabilities 0.8 / 0.6 / 0.1 / 0.0, the expected overlap would be around 60%.
 The overlap is not the best number to look at, since it depends rather heavily on the number of accepted papers; read on.
 
 **How many clear accepts were there?**
