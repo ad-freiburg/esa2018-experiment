@@ -73,7 +73,7 @@ There is no natural cutoff short of the "clear rejects".
 **How effective were the various reviewing phases?**
 We have seen that the overlap for a fixed acceptance rate is a rather unreliable measure.
 I therefore also compared the *rankings* of the two PCs among those papers for which at least one reviewer considered acceptance.
-Ranking similarity was computed the Kendall tau correleation (1 for identical rankings, 0 for random rankings, -1 if one is the reverse of the other); see the website for details.<sup>1</sup>
+Ranking similarity was computed via the Kendall tau correleation (1 for identical rankings, 0 for random rankings, -1 if one is the reverse of the other); see the website for details.<sup>1</sup>
 This similarity was 46% after Phase 1, 66% after Phase 2, and 62% after Phase 3, where the increase after Phase 1 is statistically significant (p = 0.02).
 This suggests that the per-paper dicussions play an important role for objectifying paper scores,
 while any further discussions add little or nothing in that respect.
