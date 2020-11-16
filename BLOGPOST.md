@@ -24,14 +24,13 @@ For the experiment, I picked Track B, which received 51 submissions that year.
 Two independent PCs of 12 members each were set up, who produced a total of 313 reviews, each of which was later analyzed in detail. 
 These numbers are smaller than for the NIPS experiment, but still large enough to yield meaningful results, yet small enough to allow for the time-intensive deeper analysis.
 
-Each PC had the goal to select 10-12 papers for acceptance, which corresponds to an acceptance rate of 20 - 25% (in the NIPS experiment, the acceptance rate was 22.5%).
 Both PCs followed the same standard reviewing "algorithm", which was agreed on and laid out in advance as clearly as possible:
 
 - Phase 1: PC members entered their reviews without seeing any of the other reviews.
 - Phase 2: PC members discussed with each other, mostly on a per-paper basis, and papers were proposed for acceptance / rejection in rounds.
 - Phase 3: The remaining ("gray zone") papers were compared with each other and all papers left without a clear decision in the end were decided by voting.
 
-PC members were explicitly and repeatedly asked to also update the *score*  of their review whenever they changed something in their review.
+PC members were explicitly asked and repeatedly reminded to also update the *score*  of their review whenever they changed something in their review.
 This allowed a quantitative analysis of the various phases of the reviewing process.
 For more details on the setup and on the results and the (anonymized) data, see the website of the experiment.<sup>2</sup>
 
@@ -58,22 +57,23 @@ Out of 9 papers that were clear accepts in one PC, 4 were rejected by the other 
 If papers that are "clear accepts" exist at all, they are very few.
 
 **How many clear rejects were there?**
-There were 20 clear rejects in PC1 and 17 clear rejects in PC2.
-None of these papers were even considered for acceptance in the other PC.
+A paper was counted as a clear reject, if one reviewer gave a -2 and no reviewer gave a +1 or +2.
+There were 20 such clear rejects in PC1 and 17 in PC2.
+None of these papers hat a reviewer speaking up for them in the other PC.
 At least one third of the submissions were thus clear rejects in the sense that it is unlikely that any other PC would have accepted any of them.
 There was only a single paper with a score difference of 3 or more between the two PCs.
 It was a clear accept in one PC (all reviewers gave it a +2, praising the strong results), while the other PC was very critical of its meaningfulness.
 
 **Is there a natural cutoff to determine the set of accepted papers?**
-For a rate of accepted papers of 10%, the overlap in the set of accepted papers was 40% (corresponding to the 4% "clear accepts").
-For rates between 14% to 40%, the overlap varied rather erratically between 54% and 70%.
+If both PCs accepted only their best 10%, the overlap in the set of accepted papers would have been 40% (corresponding to the 4% "clear accepts").
+For acceptance rates between 14% to 40%, the overlap varied rather erratically between 54% and 70%.
 Increasing the rate of accepted papers beyond that, showed a steady increase in the overlap (due to the "clear rejects" at the bottom).
 There is no natural cutoff short of the "clear rejects".
 
 **How effective were the various reviewing phases?**
 We have seen that the overlap for a fixed acceptance rate is a rather unreliable measure.
 I therefore also compared the *rankings* of the two PCs among those papers for which at least one reviewer considered acceptance.
-Ranking similarity was computed via the Kendall tau correleation (1 for identical rankings, 0 for random rankings, -1 if one is the reverse of the other); see the website for details.<sup>2</sup>
+Ranking similarity was computed via the Kendall tau correlation (1 for identical rankings, 0 for random rankings, -1 if one is the reverse of the other); see the website for details.<sup>2</sup>
 This similarity was 46% after Phase 1, 66% after Phase 2, and 62% after Phase 3, where the increase after Phase 1 is statistically significant (p = 0.02).
 This suggests that the per-paper discussions play an important role for objectifying paper scores,
 while any further discussions add little or nothing in that respect.
