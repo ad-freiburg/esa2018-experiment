@@ -88,7 +88,7 @@ The fewer papers are accepted, the more random is the selection.
 The initial per-paper discussions helped to make the review scores more objective.
 Any further discussions had no measurable effect.**
 
-It is important to note that the above results should be considered **a lower bound**
+The above results are probably an **an upper bound**
 for the consistency of the reviewing process at a computer science conference, for the following reasons:
 
 1. ESA is a medium-sized conference with a relatively tightly-knit community and a one-tier PC.
