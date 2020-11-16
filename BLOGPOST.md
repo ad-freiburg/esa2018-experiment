@@ -34,7 +34,7 @@ Both PCs followed the same standard reviewing process, which was agreed on and l
 
 PC members were explicitly asked and repeatedly reminded to also update the *score*  of their review whenever they changed something in their review.
 This allowed a quantitative analysis of the various phases of the reviewing process.
-For more details on the setup and on the results and the (anonymized) data, see the website of the experiment.<sup>2</sup>
+For more details on the setup, the results, the data, and a script to evaluate that data in detail, see the website of the experiment.<sup>2</sup>
 
 ## PART 2: The main results of the ESA experiment
 
