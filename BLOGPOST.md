@@ -90,10 +90,7 @@ It is important to note that the above results should be considered **a lower bo
 for the consistency of the reviewing process at a computer science conference, for the following reasons:
 
 1. ESA is a medium-sized conference with a relatively tightly-knit community and a one-tier PC.
-2. Most PCs nowadays do their work fully electronically without meeting personally.
-This is especially problematic for the discussion phase, where discussions frequently stall
-and it is unclear whether that is because the PC members have nothing to add to their previous argument
-or whether they simply forgot or did not bother to reply because of other obligations.
+2. In online discussions, threads frequently stall because PC members forget or not bother to reply because of other obligations.
 For this experiment, great care was taken to remind PC members to give feedback so that no discussion threads stalled.
 3. The reviewing "algorithm" was laid out beforehand in great detail.
 4. The PCs were selected so that their diversity (with respect to seniority, gender, topic, continent) was as similar as possible.
