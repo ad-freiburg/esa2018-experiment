@@ -3,9 +3,9 @@
 ## PART 1: From the "NIPS Experiment" to the "ESA Experiment"
 
 In 2014, the organizers of the Conference on Neural Information Processing Systems (NeurIPS, then still called NIPS) made a bold experiment.
-They split their program committee (PC) in two and let each half **independently** review a part of the submissions.
-The interesting part was that they made the parts **overlap**, so that 10% of all submissions (166 papers) were reviewed by two independent PCs.
-The result of the experiment was that among these 166 papers, the set of accepted papers from each PC overlapped by only 43%.
+They split their program committee (PC) in two and let each half **independently** review a bit more than half of the submissions.
+That way 10% of all submissions (166 papers) were reviewed by two independent PCs.
+The result of the experiment was that among these 166 papers, the set of accepted papers from the two PCs overlapped by only 43%.
 That is, more than half of the papers accepted by one PC were rejected by the other.
 This led to a passionate flare-up of the old debate of how effective or random peer-reviewing really is.
 
@@ -13,8 +13,8 @@ The experiment left open a number of interesting questions:
 
 1. How many papers that looked like "clear" accepts in one PC were rejected by the other PC, if any?
 2. How many papers that looked like "clear" rejects in one PC were accepted by the other PC, if any?
-3. How large is the "gray zone" of papers, which are neither fish nor foul and how well do the PCs agree on these?
-4. How much does the discussion of the papers in the PC help decrease the randomness of the decisions, and does it even do that?
+3. How well do the rankings of the two PCs correlate and is there a natural cutoff for the number of accepted papers?
+4. Do the discussion of the papers between PC members help decrease the randomness of the decisions?
 5. And finally, what does this all mean for the future of peer review?
 
 To answer these questions, in 2018 I conducted an experiment similar to the NIPS experiment, but with richer data and a deeper analysis.
@@ -41,12 +41,13 @@ Let us first get a quick overview of the results and then, in Part 3, discuss th
 
 **What is the overlap in the set of accepted papers?**
 In the NIPS experiment, the overlap was 43%.
-In the ESA experiment, the overlap was 67% after Phase 1, 75% after Phase 2, and 58% after Phase 3 (see below concerning the up and down).
+In the ESA experiment, the overlap was 58%.
 For both experiments, the acceptance rate per PC was 23%.
 To put these figures into perspective:
 If the reviewing algorithm was deterministic, the overlap would be 100%.
 If a random subset of papers was accepted by each PC, the expected overlap would be 24%.
 In a more realistic model, where 10% / 20% / 20% / 50% of the papers are accepted with probabilities 0.8 / 0.6 / 0.1 / 0.0, the expected overlap is around 60%.
+The overlap is not the best number to look at, since it depends rather heavily on the number of accepted papers; read on.
 
 **How many clear accepts were there?**
 The score range for each review was +2, +1, 0, -1, -2.
@@ -61,24 +62,33 @@ After Phase 2, there were 20 clear rejects in PC1 and 17 clear rejects in PC2.
 None of these papers were even considered for acceptance in the other PC.
 Those numbers were smaller after Phase 1 (before the discussions), but did not change anymore after Phase 3 (gray-zone discussions).
 At least one third of the submissions were thus clear rejects in the sense that it is unlikely that any other PC would have accepted any of them.
-There was only one paper with a score difference of 3 or more between the two PCs.
+There was only a single paper with a score difference of 3 or more between the two PCs.
 It was a clear accept in one PC (all reviewers gave it a +2, praising the strong results), while the other PC was very critical of its meaningfulness.
 
-**How effective were the various reviewing phases?**
-The overlap in the number of accepted papers fluctuated between 58% and 75% over the reviewing process, but these changes were not statistically significant.
-It also depends heavily on the acceptance rate; see the website for details.<sup>1</sup>
-We investigated this in more detail by comparing the *rankings* of the two PCs of those papers that were at least considered for acceptance (at least one reviewer speaks up) from phase to phase.
-Ranking similarity was computed the Kendall tau correleation (1 for identical rankings, 0 for random rankings, -1 if one is the reverse of the other); again see the website for details.<sup>1</sup>
-The similarity was 46% after Phase 1, 66% after Phase 2, and 62% after Phase 3, where the increase after Phase 1 is statistically significant.
-This suggests that the per-paper dicussions play an important role for objectifying paper scores,
-while the discussions of papers in the "gray zone" add little or nothing in that respect.
+**Is there a natural cutoff for the number of accepted papers**
+For a rate of accepted papers of 10%, the overlap in the set of accepted papers was 40% (corresponding to the 4% "clear accepts").
+For rates between 14% to 40%, the overlap varied rather erratically between 54% and 70%.
+Increasing the rate of accepted papers beyond that, showed a steady increase in the overlap (due to the "clear rejects" at the bottom).
+There is no natural cutoff short of the "clear rejects".
 
-**In summary, the PCs did a very good job in separating the wheat from the chaff.
-There also appeared to be at least a partial order in the wheat.
-The per-paper discussions seem to help, the gray-zone discussions don't.**
+**How effective were the various reviewing phases?**
+We have seen that the overlap for a fixed acceptance rate is a rather unreliable measure.
+I therefore also compared the *rankings* of the two PCs among those papers for which at least one reviewer considered acceptance.
+Ranking similarity was computed the Kendall tau correleation (1 for identical rankings, 0 for random rankings, -1 if one is the reverse of the other); see the website for details.<sup>1</sup>
+This similarity was 46% after Phase 1, 66% after Phase 2, and 62% after Phase 3, where the increase after Phase 1 is statistically significant (p = 0.02).
+This suggests that the per-paper dicussions play an important role for objectifying paper scores,
+while any further discussions add little or nothing in that respect.
+This also correlates well with the experience that PC members are willing to adapt their scores *once* after reading the reviews from the other PC members,
+but after that, their opinion is more or less fixed.
+
+**In summary, the PCs did a good job in separating the wheat from the chaff.
+There appeared to be at least a partial order in the wheat, but there is no natural cutoff.
+The fewer papers are accepted, the more random is the selection.
+The initial per-paper discussions helped to derandomize review scores.
+Any further discussions had no measurable effect.**
 
 It is important to note that the above results should be considered **a lower bound**
-for the consistency of a reviewing process at a computer science conference, for the following reasons:
+for the consistency of the reviewing process at a computer science conference, for the following reasons:
 
 1. ESA is a medium-sized conference with a relatively tightly-knit community and one-tier PCs.
 2. Most PCs nowadays do their work fully electronically without meeting personally.
@@ -98,7 +108,8 @@ I see four main conclusions from this experiment:
 
 **First, we need more experiments of this kind.**
 We have the NIPS experiment and now the ESA experiment.<sup>2</sup>
-They give a first impression, but important questions are still not clear enough (for example, how effective or even harmful the discussions are).
+They give a first impression, but important questions are still open.
+For example, it would be very valuable to redo the experiment above for a larger and more heterogeneous conference.
 One argument I often hear is that it is too much effort, in particular, with respect to the additional number of reviewers needed.
 I don't buy this argument.
 There are so many conferences in computer science, many of them very large.
@@ -106,41 +117,40 @@ If we pick one of these conferences from time to time to make an experiment, the
 Another argument I often hear is that it is an unsolvable problem.
 This always leaves me speechless.
 In their respective specialty, researchers love hard problems and sometimes work their whole life trying to make some progress.
-But when it comes to the peer-review process, the current status quo is as good as it gets?
+But when it comes to the reviewing process, the current status quo is as good as it gets?
 
 **Second, we need to truly accept the results of these experiments.**
 The experiments so far provide strong hints that there is a significant signal in reviews, but also a significant amount of noise and randomness.
-Yet, many PCs spend a lot of time debating papers, blissfully unaware that another PC in a parallel universe did not give these papers much attentions because they were accepted or more likely rejected early on in the process.
-From my own extensive PC experience, I conjecture that there are at least two strong biases at work here.
-One is that humans tend to be unaware of their biases and feel that they are much more objective than they actually are.
-Another is the feeling that if you make a strong effort as a group, than the result has to be meaningful and not random.
-To this day, I often hear PC chairs (who worked very hard) say that there was a clear boundary between the papers that got accepted and those that were rejected.
+Yet, to this day, the myth of a natural cutoff for determining the set of accepted papers prevails.
 It is usually acknowledged that there is a gray zone, but not that that "gray zone" might encompass almost all of the papers which are not clear rejects.
+PCs can spend a lot of time debating papers, blissfully unaware that another PC in a parallel universe did not give these papers much attention because they were accepted or more likely rejected early on in the process.
+From my own extensive PC experience, I conjecture that there are at least two biases at work here.
+One is that humans tend to be unaware of their biases and feel that they are much more objective than they actually are.
+Another is the feeling that if you make a strong effort as a group, then the result has to be meaningful.
 The other extreme is fatalism: the feeling that the whole process is random anyway, so why bother to provide a proper review.
 Both of these extremes are wrong, and this is still not widely understood or acted upon.
 
 **Third, how do we incorporate these results to improve the reviewing process?**
 Let us assume that the results from the NIPS and the ESA experiment are no anomalies.
 Then there are some pretty straightforward ways how we can incorporate them into the current reviewing process.
-For example, discussion of papers in the alleged "gray zone" (phase 3 in our experiment) could be dropped, saving everybody precious time.
-Instead, average scores could be converted to a probability distribution for at least a subset of the papers,
-namely those which have a chance to be accepted (at least one reviewer speaks up), but which do not have unanimously strong support.
+For example, discussion of papers in the alleged "gray zone" could be dropped.
+Instead, this energy could be used to communicate and implement the semantics of the available scores as clearly as possible in advance.
+Average scores could then be converted to a probability distribution for at least a subset of the papers,
+namely those for which at least one but not all reviewers spoke up.
 Papers from this "extended gray zone" could then be accepted with a probability proportional to their score.
 This would not make the process any more random, but definitely less biased.
-The prerequisite is that the semantics of the available scores are communicated to the PC members as clearly as possible in advance.
 To reduce not only bias, but also randomness, a simple and effective measure would be to accept more papers.
-Low acceptance rates for conferences come from a time where proceedings were printed and every paper was presented in a longer talk.
-Digital publication no longer imposes a limit on the number of papers and many conferences have already moved away from the "one full talk per paper" principle.
+Digital publication no longer imposes a limit on the number of accepted papers
+and many conferences have already moved away from the "one full talk per paper" principle.
 
 **Fourth, all of this knowledge has to be preserved from one PC to the next.**
 Already now, we have a treasure of knowledge on the peer reviewing process.
 But only a fraction of it is considered or implemented at any particular conference.
-The main reason is the typical way in which administrative jobs are implemented in the academic world.
+The main reason I see is the typical way in which administrative jobs are implemented in the academic world.
 Jobs rotate (often rather quickly), there is little incentive to excel, there is almost no quality control,
-and participating in the peer-reviewing process is another obligation on top of an already more than full-time job.
-You do get status points for some administrative jobs, but you do not really get points for doing them particularly well or for investing an outstanding amount of time or energy.
-Why is that so?
-Most scientists are inherently self-motivated and incredibly perseverant when it comes to their science.
+and participation in the peer-reviewing process is another obligation on top of an already more than full-time job.
+You do get status points for some administrative jobs, but not for doing them particularly well or for investing an outstanding amount of time or energy.
+Most of us are inherently self-motivated and incredibly perseverant when it comes to our science.
 Indeed, that is why most of us became scientists in the first place.
 Administrative tasks are not what we signed up for, not what we were trained for and not what we were selected for.
 We understand intellectually how important they are, but we do not really treat them that way.
