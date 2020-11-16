@@ -75,7 +75,7 @@ We have seen that the overlap for a fixed acceptance rate is a rather unreliable
 I therefore also compared the *rankings* of the two PCs among those papers for which at least one reviewer considered acceptance.
 Ranking similarity was computed via the Kendall tau correleation (1 for identical rankings, 0 for random rankings, -1 if one is the reverse of the other); see the website for details.<sup>1</sup>
 This similarity was 46% after Phase 1, 66% after Phase 2, and 62% after Phase 3, where the increase after Phase 1 is statistically significant (p = 0.02).
-This suggests that the per-paper dicussions play an important role for objectifying paper scores,
+This suggests that the per-paper discussions play an important role for objectifying paper scores,
 while any further discussions add little or nothing in that respect.
 This correlates well with the experience that PC members are willing to adapt their scores *once* after reading the reviews from the other PC members,
 but after that, their opinion is more or less fixed.
@@ -127,7 +127,7 @@ The other extreme is fatalism: the feeling that the whole process is random anyw
 Both of these extremes are wrong, and this is still not widely understood or acted upon.
 
 **Third, how do we incorporate these results to improve the reviewing process?**
-Let us assume that the results from the NIPS and the ESA experiment are no anomalies.
+Let us assume that the results from the NIPS and the ESA experiment are not anomalies.
 Then there are some pretty straightforward ways how we can incorporate them into the current reviewing process.
 For example, discussion of papers in the alleged "gray zone" could be dropped.
 Instead, this energy could be used to communicate and implement the semantics of the available scores as clearly as possible in advance.
