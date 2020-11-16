@@ -14,7 +14,7 @@ The experiment left open a number of interesting questions:
 1. How many papers that looked like "clear" accepts in one PC were rejected by the other PC, if any?
 2. How many papers that looked like "clear" rejects in one PC were accepted by the other PC, if any?
 3. How well do the rankings of the two PCs correlate and is there a natural cutoff for the number of accepted papers?
-4. Do the discussion of the papers between PC members help decrease the randomness of the decisions?
+4. Do the discussions of the papers between PC members help decrease the randomness of the decisions?
 5. And finally, what does this all mean for the future of peer review?
 
 To answer these questions, in 2018 I conducted an experiment similar to the NIPS experiment, but with richer data and a deeper analysis.
