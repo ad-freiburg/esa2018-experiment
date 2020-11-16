@@ -54,7 +54,7 @@ The score range for each review was +2, +1, 0, -1, -2.
 The use of 0 was discouraged and it was communicated beforehand that only papers with a +2 from at least one reviewer were considered for acceptance.
 For a paper that received only +2 scores, there was no incentive for discussion and these papers were accepted right away.
 There was little agreement between the two PCs concerning such "clear accepts".
-Out of 9 papers that were clear accepts in one PC, 4 were rejected by the other PC and only 2 were also clear accepts in the other PC.
+Out of 9 papers that were clear accepts in one PC, 4 were rejected by the other PC and only 2 were also clear accepts in the other PC (that is, 4% of all submissions).
 If papers that are "clear accepts" exist at all, they are very few.
 
 **How many clear rejects were there?**
