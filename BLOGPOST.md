@@ -64,7 +64,7 @@ At least one third of the submissions were thus clear rejects in the sense that 
 There was only a single paper with a score difference of 3 or more between the two PCs.
 It was a clear accept in one PC (all reviewers gave it a +2, praising the strong results), while the other PC was very critical of its meaningfulness.
 
-**Is there a natural cutoff for the number of accepted papers**
+**Is there a natural cutoff to determine the set of accepted papers?**
 For a rate of accepted papers of 10%, the overlap in the set of accepted papers was 40% (corresponding to the 4% "clear accepts").
 For rates between 14% to 40%, the overlap varied rather erratically between 54% and 70%.
 Increasing the rate of accepted papers beyond that, showed a steady increase in the overlap (due to the "clear rejects" at the bottom).
