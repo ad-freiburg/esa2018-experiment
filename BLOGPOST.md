@@ -83,7 +83,7 @@ but after that, their opinion is more or less fixed.
 **In summary, the PCs did a good job in separating the wheat from the chaff.
 There appeared to be at least a partial order in the wheat, but there is no natural cutoff.
 The fewer papers are accepted, the more random is the selection.
-The initial per-paper discussions helped to derandomize review scores.
+The initial per-paper discussions helped to make the review scores more objective.
 Any further discussions had no measurable effect.**
 
 It is important to note that the above results should be considered **a lower bound**
