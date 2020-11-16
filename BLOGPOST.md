@@ -13,7 +13,7 @@ The experiment left open a number of interesting questions:
 
 1. How many papers that looked like "clear" accepts in one PC were rejected by the other PC, if any?
 2. How many papers that looked like "clear" rejects in one PC were accepted by the other PC, if any?
-3. How well do the rankings of the two PCs correlate and is there a natural cutoff for the number of accepted papers?
+3. How well do the rankings of the two PCs correlate and is there a natural cutoff to determine the set of accepted papers?
 4. Do the discussions of the papers between PC members help decrease the randomness of the decisions?
 5. And finally, what does this all mean for the future of peer review?
 
@@ -21,10 +21,12 @@ To answer these questions, in 2018 I conducted an experiment similar to the NIPS
 The target was the 26th edition of the "European Symposium on Algorithms" (ESA), a venerable algorithms conference.
 ESA receives around 300 submissions every year and has two tracks: the more theoretical Track A and the more practical Track B.
 For the experiment, I picked Track B, which received 51 submissions that year.
-Two independent PCs of 12 members each were set up, who produced a total of 313 reviews, each of which was later analyzed in detail. 
-These numbers are smaller than for the NIPS experiment, but still large enough to yield meaningful results, yet small enough to allow for the time-intensive deeper analysis.
+Two independent PCs of 12 members each were set up.
+Together they produced a total of 313 reviews.
+These numbers are smaller than for the NIPS experiment, but still large enough to yield meaningful results.
+Importantly, they were small enough to allow for a time-intensive deeper analysis.
 
-Both PCs followed the same standard reviewing "algorithm", which was agreed on and laid out in advance as clearly as possible:
+Both PCs followed the same standard reviewing process, which was agreed on and laid out in advance as clearly as possible:
 
 - Phase 1: PC members entered their reviews without seeing any of the other reviews.
 - Phase 2: PC members discussed with each other, mostly on a per-paper basis, and papers were proposed for acceptance / rejection in rounds.
@@ -111,14 +113,14 @@ I don't buy this argument.
 There are so many conferences in computer science, many of them very large.
 If we pick one of these conferences from time to time to make an experiment, the additional load is negligible in the big picture.
 Another argument I often hear is that it is an unsolvable problem.
-This always leaves me speechless.
-In their respective specialty, researchers love hard problems and sometimes work their whole life trying to make some progress.
+This always leaves me baffled.
+In their respective field, researchers love hard problems and sometimes work their whole life trying to make some progress.
 But when it comes to the reviewing process, the current status quo is as good as it gets?
 
 **Second, we need to truly accept the results of these experiments.**
 The experiments so far provide strong hints that there is a significant signal in reviews, but also a significant amount of noise and randomness.
 Yet, to this day, the myth of a natural cutoff for determining the set of accepted papers prevails.
-It is usually acknowledged that there is a gray zone, but not that that "gray zone" might encompass almost all of the papers which are not clear rejects.
+It is usually acknowledged that there is a gray zone, but not that this "gray zone" might encompass almost all of the papers which are not clear rejects.
 PCs can spend a lot of time debating papers, blissfully unaware that another PC in a parallel universe did not give these papers much attention because they were accepted or more likely rejected early on in the process.
 From my own PC experience, I conjecture that there are at least two biases at work here.
 One is that humans tend to be unaware of their biases and feel that they are much more objective than they actually are.
