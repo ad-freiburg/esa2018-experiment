@@ -143,7 +143,7 @@ and many conferences have already moved away from the "one full talk per paper" 
 Already now, we have a treasure of knowledge on the peer reviewing process.
 But only a fraction of it is considered or implemented at any particular conference.
 The main reason I see is the typical way in which administrative jobs are implemented in the academic world.
-Jobs rotate (often rather quickly), there is little incentive to excel, there is almost no quality control,
+Jobs rotate (often rather quickly), there is little incentive to excel, there is almost no quality control (who reviews the reviewers),
 and participation in the peer-reviewing process is another obligation on top of an already more than full-time job.
 You do get status points for some administrative jobs, but not for doing them particularly well or for investing an outstanding amount of time or energy.
 Most of us are inherently self-motivated and incredibly perseverant when it comes to our science.
