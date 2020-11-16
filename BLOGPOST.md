@@ -89,7 +89,7 @@ Any further discussions had no measurable effect.**
 It is important to note that the above results should be considered **a lower bound**
 for the consistency of the reviewing process at a computer science conference, for the following reasons:
 
-1. ESA is a medium-sized conference with a relatively tightly-knit community and one-tier PCs.
+1. ESA is a medium-sized conference with a relatively tightly-knit community and a one-tier PC.
 2. Most PCs nowadays do their work fully electronically without meeting personally.
 This is especially problematic for the discussion phase, where discussions frequently stall
 and it is unclear whether that is because the PC members have nothing to add to their previous argument
