@@ -5,7 +5,7 @@
 In 2014, the organizers of the Conference on Neural Information Processing Systems (NeurIPS, then still called NIPS) made a bold experiment.
 They split their program committee (PC) in two and let each half **independently** review a bit more than half of the submissions.
 That way 10% of all submissions (166 papers) were reviewed by two independent PCs.
-The result of the experiment was that among these 166 papers, the set of accepted papers from the two PCs overlapped by only 43%.
+The result of the experiment was that among these 166 papers, the set of accepted papers from the two PCs overlapped by only 43%.<sup>1</sup>
 That is, more than half of the papers accepted by one PC were rejected by the other.
 This led to a passionate flare-up of the old debate of how effective or random peer-reviewing really is.
 
@@ -33,7 +33,7 @@ Both PCs followed the same standard reviewing "algorithm", which was agreed on a
 
 PC members were explicitly and repeatedly asked to also update the *score*  of their review whenever they changed something in their review.
 This allowed a quantitative analysis of the various phases of the reviewing process.
-For more details on the setup and on the results and the (anonymized) data, see the website of the experiment.<sup>1</sup>
+For more details on the setup and on the results and the (anonymized) data, see the website of the experiment.<sup>2</sup>
 
 ## PART 2: The main results of the ESA experiment
 
@@ -73,7 +73,7 @@ There is no natural cutoff short of the "clear rejects".
 **How effective were the various reviewing phases?**
 We have seen that the overlap for a fixed acceptance rate is a rather unreliable measure.
 I therefore also compared the *rankings* of the two PCs among those papers for which at least one reviewer considered acceptance.
-Ranking similarity was computed via the Kendall tau correleation (1 for identical rankings, 0 for random rankings, -1 if one is the reverse of the other); see the website for details.<sup>1</sup>
+Ranking similarity was computed via the Kendall tau correleation (1 for identical rankings, 0 for random rankings, -1 if one is the reverse of the other); see the website for details.<sup>2</sup>
 This similarity was 46% after Phase 1, 66% after Phase 2, and 62% after Phase 3, where the increase after Phase 1 is statistically significant (p = 0.02).
 This suggests that the per-paper discussions play an important role for objectifying paper scores,
 while any further discussions add little or nothing in that respect.
@@ -103,7 +103,7 @@ most likely all further increase the randomness in the reviewing process.
 I see four main conclusions from this experiment:
 
 **First, we need more experiments of this kind.**
-We have the NIPS experiment and now the ESA experiment.<sup>2</sup>
+We have the NIPS experiment and now the ESA experiment.<sup>3</sup>
 They give a first impression, but important questions are still open.
 For example, it would be very valuable to redo the experiment above for a larger and more heterogeneous conference.
 One argument I often hear is that it is too much effort, in particular, with respect to the additional number of reviewers needed.
@@ -158,7 +158,9 @@ Let us do more experiments to gain insights that help us make the process more f
 And let us create powerful incentives, so that whatever we already know is good is actually implemented
 and carried over from one PC to the next.**
 
-<sup>1</sup> https://github.com/ad-freiburg/esa2018-experiment
+<sup>1</sup> https://cacm.acm.org/blogs/blog-cacm/181996-the-nips-experiment provides a short description of the experiment and various links to further analyses and discussions.
 
-<sup>2</sup> There are other experiments, like the single-blind vs. double-blind comparison at WSDM'17, investigating particular aspects of the reviewing process.
+<sup>2</sup> https://github.com/ad-freiburg/esa2018-experiment
+
+<sup>3</sup> There are other experiments, like the single-blind vs. double-blind comparison at WSDM'17, investigating particular aspects of the reviewing process.
 
