@@ -2,12 +2,12 @@
 
 ## PART 1: From the "NIPS Experiment" to the "ESA Experiment"
 
-In 2014, the organizers of the Conference on Neural Information Processing Systems (NeurIPS, then still called NIPS) made a bold experiment.
+In 2014, the organizers of the Conference on Neural Information Processing Systems (NeurIPS, then still called NIPS) made a bold experiment.<sup>1</sup>
 They split their program committee (PC) in two and let each half **independently** review a bit more than half of the submissions.
 That way 10% of all submissions (166 papers) were reviewed by two independent PCs.
-The result of the experiment was that among these 166 papers, the set of accepted papers from the two PCs overlapped by only 43%.<sup>1</sup>
+The result of the experiment was that among these 166 papers, the set of accepted papers from the two PCs overlapped by only 43%.
 That is, more than half of the papers accepted by one PC were rejected by the other.
-This led to a passionate flare-up of the old debate of how effective or random peer-reviewing really is.
+This led to a passionate flare-up of the old debate of how effective or random peer-reviewing really is and what we should do about it.
 
 The experiment left open a number of interesting questions:
 
