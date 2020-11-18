@@ -14,7 +14,7 @@ The experiment left open a number of interesting questions:
 
 1. How many papers that looked like "clear" accepts in one PC were rejected by the other PC, if any?
 2. How many papers that looked like "clear" rejects in one PC were accepted by the other PC, if any?
-3. How well do the rankings of the two PCs correlate and is there a natural cutoff to determine the set of accepted papers?
+3. How well did the rankings of the two PCs correlate and is there a natural cutoff to determine the set of accepted papers?
 4. Do the discussions of the papers between PC members help decrease the randomness of the decisions?
 5. What does this all mean for the future of peer review?
 
