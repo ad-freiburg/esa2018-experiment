@@ -81,8 +81,8 @@ Again, see the website for details.<sup>2</sup>
 This similarity was 46% after Phase 1, 63% after Phase 2, and 58% after Phase 3, where the increase after Phase 1 is statistically significant (p = 0.02).
 This suggests that the per-paper discussions play an important role for objectifying paper scores,
 while any further discussions add little or nothing in that respect.
-This correlates well with the experience that PC members are willing to adapt their scores *once* after reading the reviews from the other PC members,
-but after that, their opinion is more or less fixed.
+This correlates well with the experience that PC members are willing to adapt their initial scores *once*, after reading the reviews from the other PC members.
+After that, their opinion is more or less fixed.
 
 **In summary, the PCs did a good job in separating the wheat from the chaff.
 There appeared to be at least a partial order in the wheat, but there is no natural cutoff.
