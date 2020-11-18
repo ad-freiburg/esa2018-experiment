@@ -62,7 +62,7 @@ If papers that are "clear accepts" exist at all, they are very few.
 **How many clear rejects were there?**
 A paper was counted as a clear reject, if one reviewer gave a -2 and no reviewer gave a +1 or +2.
 There were 20 such clear rejects in PC1 and 17 in PC2.
-None of these papers hat a reviewer speaking up for them in the other PC.
+None of these papers were even considered for acceptance in the other PC.
 At least one third of the submissions were thus clear rejects in the sense that it is unlikely that any other PC would have accepted any of them.
 There was only a single paper with a score difference of 3 or more between the two PCs.
 It was a clear accept in one PC (all reviewers gave it a +2, praising the strong results), while the other PC was very critical of its meaningfulness.
@@ -75,8 +75,9 @@ There is no natural cutoff short of the "clear rejects".
 
 **How effective were the various reviewing phases?**
 We have seen that the overlap for a fixed acceptance rate is a rather unreliable measure.
-I therefore also compared the *rankings* of the two PCs among those papers for which at least one reviewer considered acceptance.
-Ranking similarity was computed via the Kendall tau correlation (1 for identical rankings, 0 for random rankings, -1 if one is the reverse of the other); see the website for details.<sup>2</sup>
+I therefore also compared the *rankings* of the two PCs among those papers which were at least considered for acceptance.
+Ranking similarity was computed via the Kendall tau correlation (1 for identical rankings, 0 for random rankings, -1 if one is the reverse of the other).
+Again, see the website for details.<sup>2</sup>
 This similarity was 46% after Phase 1, 63% after Phase 2, and 58% after Phase 3, where the increase after Phase 1 is statistically significant (p = 0.02).
 This suggests that the per-paper discussions play an important role for objectifying paper scores,
 while any further discussions add little or nothing in that respect.
