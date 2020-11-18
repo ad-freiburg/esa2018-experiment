@@ -162,7 +162,7 @@ Let us do more experiments to gain insights that help us make the process more f
 And let us create powerful incentives, so that whatever we already know is good is actually implemented
 and carried over from one PC to the next.**
 
-<sup>1</sup> https://cacm.acm.org/blogs/blog-cacm/181996-the-nips-experiment provides a short description of the experiment and various links to further analyses and discussions.
+<sup>1</sup> https://cacm.acm.org/blogs/blog-cacm/181996-the-nips-experiment provides a short description of the NIPS experiment and various links to further analyses and discussions.
 
 <sup>2</sup> https://github.com/ad-freiburg/esa2018-experiment
 
