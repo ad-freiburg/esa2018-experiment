@@ -77,7 +77,7 @@ There is no natural cutoff short of the "clear rejects".
 We have seen that the overlap for a fixed acceptance rate is a rather unreliable measure.
 I therefore also compared the *rankings* of the two PCs among those papers for which at least one reviewer considered acceptance.
 Ranking similarity was computed via the Kendall tau correlation (1 for identical rankings, 0 for random rankings, -1 if one is the reverse of the other); see the website for details.<sup>2</sup>
-This similarity was 46% after Phase 1, 66% after Phase 2, and 62% after Phase 3, where the increase after Phase 1 is statistically significant (p = 0.02).
+This similarity was 46% after Phase 1, 63% after Phase 2, and 58% after Phase 3, where the increase after Phase 1 is statistically significant (p = 0.02).
 This suggests that the per-paper discussions play an important role for objectifying paper scores,
 while any further discussions add little or nothing in that respect.
 This correlates well with the experience that PC members are willing to adapt their scores *once* after reading the reviews from the other PC members,
