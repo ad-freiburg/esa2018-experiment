@@ -2,7 +2,7 @@
 
 ## PART 1: From the "NIPS Experiment" to the "ESA Experiment"
 
-In 2014, the organizers of the Conference on Neural Information Processing Systems (NeurIPS, then still called NIPS) made a bold experiment.<sup>1</sup>
+In 2014, the organizers of the Conference on Neural Information Processing Systems (NeurIPS, then still called NIPS) made an interesting experiment.<sup>1</sup>
 They split their program committee (PC) in two and let each half **independently** review a bit more than half of the submissions.
 That way 10% of all submissions (166 papers) were reviewed by two independent PCs.
 The aimed at acceptance rate per PC was 23%.
