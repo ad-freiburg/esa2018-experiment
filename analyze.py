@@ -9,60 +9,81 @@ import math
 import random
 import pathlib
 
+# Some constants
+
+# Standard deviation of Gaussian noise for avr, l5r, l3r, l2r
+# A value of 0.8 gives the same Kendall tau as the real data
+score_noise_standard_deviation = 0.8
+
+# Number of accepted papers. In the experiment, 12 papers were accepted per PC.
+num_accepted = 12
+
+
 # Dictionary with long names for the score types above.
 score_type_names = {
-    "av": "confidence-weighted average score, from [-2..+2]",
-    "l5": "rule-based score from {+2, +1, 0, -1, -2}",
-    "l3u": "score from {+2, +1, -1} via l5, where -2, -1, 0 -> -1",
-    "l3m": "score from {+1, 0, -1} via l5, where -2 -> -1 and +2 -> +1",
-    "l3l": "score from {+1, -1, -2} via l5, where +2 -> +1 and 0 -> -1",
-    "l2u": "score from {+2, 0} via l5, where -2, -1, 0, +1 -> 0",
-    "l2m": "score from {+1, -1} via l5, where +2, +1 -> +1",
-    "l2l": "score from {0, -2} via l5, where -1, 0, +1, +2 -> 0",
-    "av5": "av score, rounded to nearest score from {-2, -1, 0, +1, +2}",
-    "avt": "av score if l5 in {+2, +1} and 0 otherwise [used for blog post]",
+    "av":   "confidence-weighted average score, from [-2..+2]",
+    "l5":   "rule-based score from {+2, +1, 0, -1, -2}",
+    "l3u":  "score from {+2, +1, -1} via l5, where -2, -1, 0 -> -1",
+    "l3m":  "score from {+1, 0, -1} via l5, where -2 -> -1 and +2 -> +1",
+    "l3l":  "score from {+1, -1, -2} via l5, where +2 -> +1 and 0 -> -1",
+    "l2u":  "score from {+2, 0} via l5, where -2, -1, 0, +1 -> 0",
+    "l2m":  "score from {+1, -1} via l5, where +2, +1 -> +1",
+    "l2l":  "score from {0, -2} via l5, where -1, 0, +1, +2 -> 0",
+    "av5":  "av score, rounded to nearest score from {-2, -1, 0, +1, +2}",
+    "avt":  "av score if l5 in {+2, +1} and 0 otherwise [used for blog post]",
     "av3u": "av5 score reduced to {+2, +1, -1} like l5 is reduced to l3u",
     "av3m": "av5 score reduced to {+1, 0, -1} like l5 is reduced to l3m",
     "av3l": "av5 score reduced to {+1, -1, -2} like l5 is reduced to l3l",
     "av2u": "av5 score, reduced to {+2, 0} like l5 is reduced to l2u",
     "av2m": "av5 score, reduced to {+1, -1} like l5 is reduced to l2m",
     "av2l": "av5 score, reduced to {0, -2} like l5 is reduced to l2l",
-    "avr": "fixed score from [-2..+2] with added Gaussian noise",
-    "l5r": "random score from {+2,+1,0,-1,-2}, based on avr",
-    "l3r": "random score from {+1,0,-1}, based on l5r, mapping from l3m",
-    "l2r": "random score from {+1,-1}, based on l5r, mapping from l2m",
-    "rnd": "completely random score from [-2..+2]"
+    "avr":  "fixed score from [-2..+2] with added Gaussian noise",
+    "avrt": "like avt, but based on avr instead of on av [used for blog post]",
+    "l5r":  "random score from {+2,+1,0,-1,-2}, based on avr",
+    "l3r":  "random score from {+1,0,-1}, based on l5r, mapping from l3m",
+    "l2r":  "random score from {+1,-1}, based on l5r, mapping from l2m",
+    "rnd":  "completely random score from [-2..+2]"
 }
 
 # The score labels for the discrete ones of these. This is need to print the
 # confusion matrices. The + in the +0 is important (or change code).
 score_labels_by_type = {
-    "l5": ["+2", "+1", "+0", "-1", "-2"],
-    "l3u": ["+2", "+1", "-1"],
-    "l3m": ["+1", "+0", "-1"],
-    "l3l": ["+1", "-1", "-2"],
-    "l2u": ["+2", "+0"],
-    "l2m": ["+1", "-1"],
-    "l2l": ["+0", "-2"],
-    "av5": ["+2", "+1", "+0", "-1", "-2"],
+    "l5":   ["+2", "+1", "+0", "-1", "-2"],
+    "l3u":  ["+2", "+1", "-1"],
+    "l3m":  ["+1", "+0", "-1"],
+    "l3l":  ["+1", "-1", "-2"],
+    "l2u":  ["+2", "+0"],
+    "l2m":  ["+1", "-1"],
+    "l2l":  ["+0", "-2"],
+    "av5":  ["+2", "+1", "+0", "-1", "-2"],
+    "avt":  ["+2", "+1", "+0"],
     "av3u": ["+2", "+1", "-1"],
     "av3m": ["+1", "+0", "-1"],
     "av3l": ["+1", "-1", "-2"],
     "av2u": ["+2", "+0"],
     "av2m": ["+1", "-1"],
     "av2l": ["+0", "-2"],
-    "avr": ["+2", "+1", "+0", "-1", "-2"],
-    "l5r": ["+2", "+1", "+0", "-1", "-2"],
-    "l3r": ["+1", "+0", "-1"],
-    "l2r": ["+1", "-1"]
+    "avr":  ["+2", "+1", "+0", "-1", "-2"],
+    "avrt": ["+2", "+1", "+0"],
+    "l5r":  ["+2", "+1", "+0", "-1", "-2"],
+    "l3r":  ["+1", "+0", "-1"],
+    "l2r":  ["+1", "-1"]
 }
 
 # Usage info printed when calling script without arguments.
 usage_info = """
-Usage: python3 analyze.py <score type> ...
+Usage: python3 analyze.py <score type> [options]
 
-Analyze the similarity of the rankings produced by the two PCs, where
-<score type> specifies which score is used for each submission and PC:
+Analyze the similarity of the rankings produced by the two PCs. Options are:
+
+--print: print scores for each PC and create gnuplot script (just try it)
+--confusion-pcs: show confusion matrix between PCs for each phase
+--confusion-phases: show confusion matrix between phases for each PC
+--confusion-phases-individual-scores: like previous, but per review not per paper
+
+The <score type> specifies which score is used for each submission and PC. If
+multiple score types are specified, the analysis is done for each score type,
+one after the other.
 
 av :   """ + score_type_names["av"] + """
 l5 :   """ + score_type_names["l5"] + """
@@ -81,20 +102,22 @@ av2u:  """ + score_type_names["av2u"] + """
 av2m:  """ + score_type_names["av2m"] + """
 av2l:  """ + score_type_names["av2l"] + """
 avr:   """ + score_type_names["avr"] + """
+avrt:  """ + score_type_names["avrt"] + """
 l5r:   """ + score_type_names["l5r"] + """
 l3r:   """ + score_type_names["l3r"] + """
 l2r:   """ + score_type_names["l2r"] + """
 rnd:   """ + score_type_names["rnd"] + """
 
-If multiple score types are specified, the analysis is done for each score
-type, one after the other.
+The rule-based l5 score is computed as follows from a set of three or four
+score-confidence pairs. The scores +2 and -2 are only considered in the sense
+below if the associated confidence is >= 3
+
++2 : if all scores are +2
++1 : if at least one score is +2
+ 0 : at least one +1, but no +2
+-1 : no +1 or +2, but no -2
+-2 : no +1 or +2, and at least one -2
 """
-
-
-# Standard deviation of Gaussian noise for avr, l5r, l3r, l2r
-#
-# Note: a value of 0.8 gives the same Kendall tau as the real data
-score_noise_standard_deviation = 0.8
 
 
 class EsaExperimentData:
@@ -297,11 +320,15 @@ class EsaExperimentData:
                             self.compute_scores(sc_pairs, "l5")))
         elif score_type == "avr":
             # Evenly spaced score from 2 to -2, with added Gaussian noise and
-            # truncated to [-2..2] again.
+            # truncated to [-2..2] again. Ignores scores from files.
             return [min(2, max(-2,
                     2 - 4 * score / (len(sc_pairs) - 1) +
                     random.gauss(0, score_noise_standard_deviation)))
                     for score in range(len(sc_pairs))]
+        elif score_type == "avrt":
+            return list(map(lambda avr, l5: avr if l5 > 0 else 0.0,
+                            self.compute_scores(sc_pairs, "avr"),
+                            self.compute_scores(sc_pairs, "l5")))
         elif score_type == "l5r":
             return list(map(lambda x: round(x),
                             self.compute_scores(sc_pairs, "avr")))
@@ -412,6 +439,52 @@ class EsaExperimentData:
                             individual_scores[i][j].append(pair[0])
         return individual_scores
 
+
+    def rtest(self, scores):
+        """
+        Compute p-value of R-test for given scores for each phase.
+        """
+        
+        ranking_similarity = \
+                lambda s1, s2: corr(kendall_tau_b(s1, s2))
+        #        lambda s1, s2: overlap_topk(s1, s2, num_accepted)
+        n = len(scores[0][0])
+        num_samples = 2048
+        print()
+        print("R-Test ... #scores = %d, #samples = %d" %
+                (n, num_samples))
+        print()
+        scores_A_pc1 = [0] * n
+        scores_A_pc2 = [0] * n
+        scores_B_pc1 = [0] * n
+        scores_B_pc2 = [0] * n
+        for i1, i2 in [(0,1), (1, 2), (0,2)]:
+            tau_1 = ranking_similarity(scores[i1][0], scores[i1][1])
+            tau_2 = ranking_similarity(scores[i2][0], scores[i2][1])
+            diff_observed = tau_1 - tau_2
+            count = 0
+            for j in range(num_samples):
+                for k in range(n):
+                    if random.randint(0, 1) == 1:
+                        scores_A_pc1[k] = scores[i1][0][k]
+                        scores_A_pc2[k] = scores[i1][1][k]
+                        scores_B_pc1[k] = scores[i2][0][k]
+                        scores_B_pc2[k] = scores[i2][1][k]
+                    else:
+                        scores_A_pc1[k] = scores[i2][0][k]
+                        scores_A_pc2[k] = scores[i2][1][k]
+                        scores_B_pc1[k] = scores[i1][0][k]
+                        scores_B_pc2[k] = scores[i1][1][k]
+                tau_A = ranking_similarity(scores_A_pc1, scores_A_pc2)
+                tau_B = ranking_similarity(scores_B_pc1, scores_B_pc2)
+                diff = tau_A - tau_B
+                if abs(diff) >= abs(diff_observed):
+                    count += 1
+            p_value = count / num_samples
+            print("Phase %d <-> %d : p = %.2f   (%.2f <-> %.2f)"
+                    % (i1 + 1, i2 + 1, p_value, tau_1, tau_2))
+
+
     def print_scores(self, scores, scores_file_base_name, subdir_name):
         """
         Print the scores to files <base_name>_phase<i>_pc<j>.txt in the given
@@ -467,42 +540,48 @@ class EsaExperimentData:
         with open(gnuplot_script_name, "w+") as gnuplot_script_file:
             print(gnuplot_script, file=gnuplot_script_file)
 
-    def print_kendall_tau(self, scores, score_type):
+    def print_kendall_tau(self, scores):
         """
         Print statistics for the given score type. See the usage_info string at
         the beginning of this file for the options. See function compute_scores
         for the details of how the scores are computed for each type.
         """
 
+        # Compute correlation (-1..1) instead of distance (0..1), where distance
+        # 0 corresponds to correlation 1 and distance 0 corresponds to
+        # correlation -1.
+        trafo = lambda x: 1 - 2 * x
         print()
-        print("Normalized Kendall tau distance (a / b / p) "
+        print("Kendall tau correlation (a / b / p) "
               "between PCs and phases:")
+        # print("Normalized Kendall tau distance (a / b / p) "
+        #       "between PCs and phases:")
         print()
-        tau_a_1 = kendall_tau_a(scores[0][0], scores[0][1])
-        tau_a_2 = kendall_tau_a(scores[1][0], scores[1][1])
-        tau_a_3 = kendall_tau_a(scores[2][0], scores[2][1])
-        tau_b_1 = kendall_tau_b(scores[0][0], scores[0][1])
-        tau_b_2 = kendall_tau_b(scores[1][0], scores[1][1])
-        tau_b_3 = kendall_tau_b(scores[2][0], scores[2][1])
-        tau_p_1 = kendall_tau_p(scores[0][0], scores[0][1])
-        tau_p_2 = kendall_tau_p(scores[1][0], scores[1][1])
-        tau_p_3 = kendall_tau_p(scores[2][0], scores[2][1])
+        tau_a_1 = trafo(kendall_tau_a(scores[0][0], scores[0][1]))
+        tau_a_2 = trafo(kendall_tau_a(scores[1][0], scores[1][1]))
+        tau_a_3 = trafo(kendall_tau_a(scores[2][0], scores[2][1]))
+        tau_b_1 = trafo(kendall_tau_b(scores[0][0], scores[0][1]))
+        tau_b_2 = trafo(kendall_tau_b(scores[1][0], scores[1][1]))
+        tau_b_3 = trafo(kendall_tau_b(scores[2][0], scores[2][1]))
+        tau_p_1 = trafo(kendall_tau_p(scores[0][0], scores[0][1]))
+        tau_p_2 = trafo(kendall_tau_p(scores[1][0], scores[1][1]))
+        tau_p_3 = trafo(kendall_tau_p(scores[2][0], scores[2][1]))
         print("Phase 1: %.2f / %.2f / %.2f" % (tau_a_1, tau_b_1, tau_p_1))
         print("Phase 2: %.2f / %.2f / %.2f" % (tau_a_2, tau_b_2, tau_p_2))
         print("Phase 3: %.2f / %.2f / %.2f" % (tau_a_3, tau_b_3, tau_p_3))
         print()
-        tau_a_pc1_12 = kendall_tau_a(scores[0][0], scores[1][0])
-        tau_a_pc1_23 = kendall_tau_a(scores[1][0], scores[2][0])
-        tau_a_pc2_12 = kendall_tau_a(scores[0][1], scores[1][1])
-        tau_a_pc2_23 = kendall_tau_a(scores[1][1], scores[2][1])
-        tau_b_pc1_12 = kendall_tau_b(scores[0][0], scores[1][0])
-        tau_b_pc1_23 = kendall_tau_b(scores[1][0], scores[2][0])
-        tau_b_pc2_12 = kendall_tau_b(scores[0][1], scores[1][1])
-        tau_b_pc2_23 = kendall_tau_b(scores[1][1], scores[2][1])
-        tau_p_pc1_12 = kendall_tau_p(scores[0][0], scores[1][0])
-        tau_p_pc1_23 = kendall_tau_p(scores[1][0], scores[2][0])
-        tau_p_pc2_12 = kendall_tau_p(scores[0][1], scores[1][1])
-        tau_p_pc2_23 = kendall_tau_p(scores[1][1], scores[2][1])
+        tau_a_pc1_12 = trafo(kendall_tau_a(scores[0][0], scores[1][0]))
+        tau_a_pc1_23 = trafo(kendall_tau_a(scores[1][0], scores[2][0]))
+        tau_a_pc2_12 = trafo(kendall_tau_a(scores[0][1], scores[1][1]))
+        tau_a_pc2_23 = trafo(kendall_tau_a(scores[1][1], scores[2][1]))
+        tau_b_pc1_12 = trafo(kendall_tau_b(scores[0][0], scores[1][0]))
+        tau_b_pc1_23 = trafo(kendall_tau_b(scores[1][0], scores[2][0]))
+        tau_b_pc2_12 = trafo(kendall_tau_b(scores[0][1], scores[1][1]))
+        tau_b_pc2_23 = trafo(kendall_tau_b(scores[1][1], scores[2][1]))
+        tau_p_pc1_12 = trafo(kendall_tau_p(scores[0][0], scores[1][0]))
+        tau_p_pc1_23 = trafo(kendall_tau_p(scores[1][0], scores[2][0]))
+        tau_p_pc2_12 = trafo(kendall_tau_p(scores[0][1], scores[1][1]))
+        tau_p_pc2_23 = trafo(kendall_tau_p(scores[1][1], scores[2][1]))
         print("Phases 1 <-> 2, PC1: %.2f / %.2f / %.2f"
               % (tau_a_pc1_12, tau_b_pc1_12, tau_p_pc1_12))
         print("Phases 1 <-> 2, PC2: %.2f / %.2f / %.2f"
@@ -512,6 +591,57 @@ class EsaExperimentData:
               % (tau_a_pc1_23, tau_b_pc1_23, tau_p_pc1_23))
         print("Phases 2 <-> 3, PC2: %.2f / %.2f / %.2f"
               % (tau_a_pc2_23, tau_b_pc2_23, tau_p_pc2_23))
+
+    def print_overlap(self, scores, subdir_name):
+        """
+        Print overlap of the set of accepted papers for a selection of
+        thresholds for the number of accepted papers.
+        """
+
+        print()
+        print("Overlap between PCs for the three phases for various "
+              "thresholds for the number k of accepted papers:")
+        print()
+        overlaps = []
+        for k in range(1, len(scores[0][0])):
+            k_perc = round(100 * k / len(scores[0][0]))
+            o_1 = round(100 * overlap_topk(scores[0][0], scores[0][1], k))
+            o_2 = round(100 * overlap_topk(scores[1][0], scores[1][1], k))
+            o_3 = round(100 * overlap_topk(scores[2][0], scores[2][1], k))
+            overlaps.append((o_1, o_2, o_3))
+            print("k = %2d (%2d%%): %3d%% ->%3d%% ->%3d%%" %
+                    (k, k_perc, o_1, o_2, o_3))
+
+        print()
+        print("Printing overlaps to sub-directory \"%s\"" % subdir_name)
+        print()
+
+        pathlib.Path(subdir_name).mkdir(exist_ok=True)
+        file_names = []
+        for i in range(3):
+           file_name = "tmp/overlaps-phase%d.txt" % (i + 1)
+           file_names.append(file_name)
+           with open(file_name, "w+") as file:
+               file.writelines("%d\n" % o[i] for o in overlaps)
+
+        gnuplot_script_name = "%s/plot-overlaps.p" % subdir_name
+        print("Writing gnuplot script to show overlaps, call like this:")
+        print()
+        print("\x1b[34mgnuplot -c %s\x1b[0m" % gnuplot_script_name)
+        print()
+        plot_arg = "\"%s\""
+        gnuplot_script = \
+            "set key left top\n" + \
+            "plot " + ", ".join(list(map(lambda x: plot_arg % x,
+                                         file_names))) + "\n" + \
+            "pause mouse"
+
+        print("Here is the script (for your curiosity)")
+        print()
+        print(gnuplot_script)
+        with open(gnuplot_script_name, "w+") as gnuplot_script_file:
+            print(gnuplot_script, file=gnuplot_script_file)
+
 
     def print_confusion_matrices(self, scores, score_type, mode):
         """
@@ -618,6 +748,30 @@ class EsaExperimentData:
 
 
 # Global functions
+
+def overlap_topk(scores1, scores2, k):
+    """
+    Computes the overlap in the set of accepted papers, when accepting the
+    k top-ranked papers for each PC (the higher the score, the higher the rank).
+
+    >>> overlap_topk([4, 3, 2, 1], [3, 4, 1, 2], 2)
+    1.0
+    >>> overlap_topk([4, 3, 2, 1], [3, 1, 4, 2], 2)
+    0.5
+    >>> overlap_topk([4, 3, 2, 1], [3, 4, 1, 2], 1)
+    0.0
+    >>> overlap_topk([4, 3, 2, 1], [3, 1, 4, 2], 3) # doctest:+ELLIPSIS
+    0.666...
+    """
+    # Top k scores as tuples (score, index)
+    top1 = sorted([(scores1[i], i) for i in range(len(scores1))])[-k:]
+    top2 = sorted([(scores2[i], i) for i in range(len(scores2))])[-k:]
+    # Sets of indices of the top k scores
+    set1 = set([x[1] for x in top1])
+    set2 = set([x[1] for x in top2])
+    # Return the size of the overlap divided by k.
+    return len(set1.intersection(set2)) / k
+
 
 def kendall_tau_a(scores1, scores2):
     """
@@ -853,9 +1007,13 @@ if __name__ == "__main__":
 
         for mode in modes:
             if mode == "--kendall":
-                ee.print_kendall_tau(scores, score_type)
+                ee.print_kendall_tau(scores)
+            elif mode == "--overlap":
+                ee.print_overlap(scores, "tmp")
             elif mode == "--print":
                 ee.print_scores(scores, score_type, "tmp")  # in subdir "tmp"
+            elif mode == "--rtest":
+                ee.rtest(scores)
             elif mode == "--confusion-pcs":
                 ee.print_confusion_matrices(scores, score_type, "pcs")
             elif mode == "--confusion-phases":
