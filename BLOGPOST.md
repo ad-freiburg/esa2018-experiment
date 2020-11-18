@@ -119,7 +119,7 @@ This always leaves me baffled.
 In their respective field, researchers love hard problems and sometimes work their whole life trying to make some progress.
 But when it comes to the reviewing process, the current status quo is as good as it gets?
 
-**Second, we need to truly accept the results of these experiments.**
+**Second, we need to fully accept the results of these experiments.**
 The experiments so far provide strong hints that there is a significant signal in reviews, but also a significant amount of noise and randomness.
 Yet, to this day, the myth of a natural cutoff for determining the set of accepted papers prevails.
 It is usually acknowledged that there is a gray zone, but not that this "gray zone" might encompass almost all of the papers which are not clear rejects.
