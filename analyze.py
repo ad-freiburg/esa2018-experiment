@@ -158,7 +158,7 @@ class EsaExperimentData:
         all_scores = []
         with open(file_name) as f:
             for line in f:
-                entries = line.rstrip().split(" ")
+                entries = line.rstrip().split()
                 scores = list(map(float, entries[0:5:2]))
                 confis = list(map(int, entries[1:6:2]))
 
