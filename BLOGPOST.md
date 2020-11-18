@@ -99,7 +99,7 @@ For this experiment, great care was taken to remind PC members to give feedback 
 3. The reviewing process was laid out in detail beforehand and it was identical for the two PCs.
 4. The PCs were selected so that their diversity (with respect to seniority, gender, topic, continent) was as similar as possible.
 
-Larger conference, two-tier PCs, unresponsive PC members, underspecified guidelines, and variance in diversity
+Larger conferences, two-tier PCs, unresponsive PC members, underspecified guidelines, and variance in diversity
 most likely all further increase the randomness in the reviewing process.
 
 ## PART 3: What now?
