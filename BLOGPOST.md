@@ -5,6 +5,7 @@
 In 2014, the organizers of the Conference on Neural Information Processing Systems (NeurIPS, then still called NIPS) made a bold experiment.<sup>1</sup>
 They split their program committee (PC) in two and let each half **independently** review a bit more than half of the submissions.
 That way 10% of all submissions (166 papers) were reviewed by two independent PCs.
+The aimed at acceptance rate per PC was 23%.
 The result of the experiment was that among these 166 papers, the set of accepted papers from the two PCs overlapped by only 43%.
 That is, more than half of the papers accepted by one PC were rejected by the other.
 This led to a passionate flare-up of the old debate of how effective or random peer-reviewing really is and what we should do about it.
@@ -21,8 +22,8 @@ To answer these questions, in 2018 I conducted an experiment similar to the NIPS
 The target was the 26th edition of the "European Symposium on Algorithms" (ESA), a venerable algorithms conference.
 ESA receives around 300 submissions every year and has two tracks: the more theoretical Track A and the more practical Track B.
 For the experiment, I picked Track B, which received 51 submissions that year.
-Two independent PCs of 12 members each were set up.
-Together they produced a total of 313 reviews.
+Two independent PCs were set up, each with 12 members and tasked with an acceptance rate of 24%.
+A total of 313 reviews were produced.
 These numbers are smaller than for the NIPS experiment, but still large enough to yield meaningful results.
 Importantly, they were small enough to allow for a time-intensive deeper analysis.
 
@@ -43,10 +44,10 @@ Let us first get a quick overview of the results and then, in Part 3, discuss th
 **What is the overlap in the set of accepted papers?**
 In the NIPS experiment, the overlap was 43%.
 In the ESA experiment, the overlap was 58%.
-For both experiments, the acceptance rate per PC was around 23%.
+The acceptance rates were almost the same.
 To put these figures into perspective:
 If the reviewing algorithm was deterministic, the overlap would be 100%.
-If a random subset of papers was accepted by each PC, the expected overlap for the named acceptance rate would be 24%.
+If a random subset of papers was accepted by each PC, the expected overlap would be 24%.
 If 10% / 20% / 20% / 50% of the papers were accepted with probabilities 0.8 / 0.6 / 0.1 / 0.0, the expected overlap would be around 60%.
 The overlap is not the best number to look at, since it depends rather heavily on the number of accepted papers; read on.
 
