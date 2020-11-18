@@ -96,7 +96,7 @@ for the objectivity of the reviewing process at a computer science conference, f
 1. ESA is a medium-sized conference with a relatively tightly-knit community and a one-tier PC.
 2. In online discussions, threads frequently stall because PC members forget or do not bother to reply because of other obligations.
 For this experiment, great care was taken to remind PC members to give feedback so that no discussion threads stalled.
-3. The reviewing "algorithm" was laid out beforehand in detail.
+3. The reviewing process was laid out in detail beforehand and it was identical for the two PCs.
 4. The PCs were selected so that their diversity (with respect to seniority, gender, topic, continent) was as similar as possible.
 
 Larger conference, two-tier PCs, unresponsive PC members, underspecified guidelines, and variance in diversity
