@@ -49,7 +49,7 @@ To put these figures into perspective:
 If the reviewing algorithm was deterministic, the overlap would be 100%.
 If a random subset of papers was accepted by each PC, the expected overlap would be 24%.
 If 10% / 20% / 20% / 50% of the papers were accepted with probabilities 0.8 / 0.6 / 0.1 / 0.0, the expected overlap would be around 60%.
-The overlap is not the best number to look at, since it depends rather heavily on the number of accepted papers; read on.
+The overlap is not the best number to look at, since it depends rather heavily on the number of accepted papers; see below.
 
 **How many clear accepts were there?**
 The score range for each review was +2, +1, 0, -1, -2.
