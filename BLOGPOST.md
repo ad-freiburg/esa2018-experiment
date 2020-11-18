@@ -1,4 +1,4 @@
-# How Objective is Peer Review: The ESA 2018 Experiment
+# How Objective is Peer Review: The ESA Experiment
 
 ## PART 1: From the "NIPS Experiment" to the "ESA Experiment"
 
