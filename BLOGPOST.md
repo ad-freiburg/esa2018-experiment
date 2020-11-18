@@ -144,11 +144,11 @@ Digital publication no longer imposes a limit on the number of accepted papers
 and many conferences have already moved away from the "one full talk per paper" principle.
 
 **Fourth, all of this knowledge has to be preserved from one PC to the next.**
-Already now, we have a treasure of knowledge on the peer reviewing process.
+Already now, we have a treasure of knowledge on the peer review process.
 But only a fraction of it is considered or implemented at any particular conference.
 The main reason I see is the typical way in which administrative jobs are implemented in the academic world.
 Jobs rotate (often rather quickly), there is little incentive to excel, there is almost no quality control (who reviews the reviewers),
-and participation in the peer-reviewing process is another obligation on top of an already more than full-time job.
+and participation in the peer review process is another obligation on top of an already more than full-time job.
 You do get status points for some administrative jobs, but not for doing them particularly well or for investing an outstanding amount of time or energy.
 Most of us are inherently self-motivated and incredibly perseverant when it comes to our science.
 Indeed, that is why most of us became scientists in the first place.
@@ -156,7 +156,7 @@ Administrative tasks are not what we signed up for, not what we were trained for
 We understand intellectually how important they are, but we do not really treat them that way.
 
 **My bottom line:
-The reputation of the peer-review process is tarnished.
+The reputation of the peer review process is tarnished.
 Let us work on this with the same love and attention we give to our favorite research problems.
 Let us do more experiments to gain insights that help us make the process more fair and regain some trust.
 And let us create powerful incentives, so that whatever we already know is good is actually implemented
