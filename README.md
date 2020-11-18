@@ -4,11 +4,23 @@
 
 The ESA 2018 Experiment was an in-depth analysis of two parallel program committees reviewing the complete set of submissions independently.
 This repository provides the (anonymized) data behind the experiment, we well as a Python script to analyze and visualize the data in various ways.
-It also contains a draft of a post soon to be published on the CACM Blog: https://github.com/ad-freiburg/esa2018-experiment/blob/master/BLOGPOST.md
+It also contains the blog post published at BLOG@CACM: https://github.com/ad-freiburg/esa2018-experiment/blob/master/BLOGPOST.md
 The slides from the report presented at the business meeting of the conference
 can be found here: http://ad-publications.informatik.uni-freiburg.de/ESA_experiment_Bast_2018.pdf
 
-Here are explanation of a few details from the blog post, which also explain how the `analyze.py` script works.
+## Data
+
+The anonymized data is given in six files, one for each PC and each reviewing phase.
+For example, `scores-phase1-pc2.tsv` contains a snapshot of the scores from PC2 after Phase 1.
+There is one line per submission, and one submission has the same line number in all files.
+The first eight columns are pairs of review score and confidence score.
+Most submissions received three reviews, in which case the seventh and eigth column are empty.
+The voting results after Phase 3 are recorded in an additional ninth and tenth column (the average score and confidence from the votes).
+
+## Explanations of some details from the blog post
+
+Here are explanation of a few details from the blog post.
+They also explain how the `analyze.py` script works.
 Some of the explanations refer to the slides from the link above.
 
 1. If a fraction p<sub>i</sub> of the papers are accepted with probability a<sub>i</sub>, then the expected overlap is Σ<sub>i</sub> p<sub>i</sub> a<sub>i</sub><sup>2</sup> / Σ<sub>i</sub> p<sub>i</sub> a<sub>i</sub>. For the simple model, where each paper is accepted independently from the others with the same fixed acceptance rate, the expected overlap is simply that acceptance rate.
