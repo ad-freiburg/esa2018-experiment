@@ -166,5 +166,5 @@ and carried over from one PC to the next.**
 
 <sup>2</sup> https://github.com/ad-freiburg/esa2018-experiment
 
-<sup>3</sup> There are other experiments, like the single-blind vs. double-blind comparison at WSDM'17, investigating particular aspects of the reviewing process.
+<sup>3</sup> There are other experiments, like the single-blind vs. double-blind experiment at WSDM'17, which investigated a particular aspect of the reviewing process: https://arxiv.org/abs/1702.00502
 
