@@ -11,7 +11,7 @@ can be found here: http://ad-publications.informatik.uni-freiburg.de/ESA_experim
 Here are explanation of a few details from the blog post, which also explain how the `analyze.py` script works.
 Some of the explanations refer to the slides from the link above.
 
-1. If a fraction p_i of the papers are accepted with probability a_i, then the expected overlap is Σ<sub>i</sub> p<sub>i</sub> a<sub>i</sub><sup>2</sup> / Σ<sub>i</sub> p<sub>i</sub> a<sub>i</sub>. For the simple model, where each paper is accepted independently from the others, the expected overlap is simply the acceptance rate.
+1. If a fraction p<sub>i</sub> of the papers are accepted with probability a<sub>i</sub>, then the expected overlap is Σ<sub>i</sub> p<sub>i</sub> a<sub>i</sub><sup>2</sup> / Σ<sub>i</sub> p<sub>i</sub> a<sub>i</sub>. For the simple model, where each paper is accepted independently from the others, the expected overlap is simply the acceptance rate.
 
 2. See slide 5 for the exact semantics of the scores. See slide 9 for the detailed scores of the 9 papers, which were a "clear accept" in at least one PC.
 
