@@ -114,7 +114,7 @@ One argument I often hear is that it is too much effort, in particular, with res
 I don't buy this argument.
 There are so many conferences in computer science, many of them very large.
 If we pick one of these conferences from time to time to make an experiment, the additional load is negligible in the big picture.
-Another argument I often hear is that it is an unsolvable problem.
+Another argument I often hear is that improving peer review is an unsolvable problem.
 This always leaves me baffled.
 In their respective field, researchers love hard problems and sometimes work their whole life trying to make some progress.
 But when it comes to the reviewing process, the current status quo is as good as it gets?
