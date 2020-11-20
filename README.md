@@ -20,7 +20,7 @@ The voting results after Phase 3 are recorded in an additional ninth and tenth c
 ## Explanations of some details from the blog post
 
 Here are explanation of a few details from the blog post.
-They also explain how the `analyze.py` script works.
+They also explain by example how the `analyze.py` script works.
 Some of the explanations refer to the slides from the link above.
 
 1. If a fraction p<sub>i</sub> of the papers are accepted with probability a<sub>i</sub>, then the expected overlap is Σ<sub>i</sub> p<sub>i</sub> a<sub>i</sub><sup>2</sup> / Σ<sub>i</sub> p<sub>i</sub> a<sub>i</sub>. For the simple model, where each paper is accepted independently from the others with the same fixed acceptance rate, the expected overlap is simply that acceptance rate.
